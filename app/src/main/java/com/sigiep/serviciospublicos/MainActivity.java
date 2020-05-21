@@ -11,11 +11,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.sigiep.serviciospublicos.controllers.UsuarioController;
+import com.sigiep.serviciospublicos.controllers.MainController;
 
 public class MainActivity extends AppCompatActivity {
 
-    UsuarioController objuser = new UsuarioController(this, "Servicios_publicos", null, 1);
+    MainController objuser = new MainController(this, "Servicios_publicos", null, 1);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +28,14 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "SE CREÓ EL ADMINISTRADOR", Toast.LENGTH_SHORT).show();
         }else{
             Toast.makeText(this, "YA EXISTE EL ADMINISTRADOR", Toast.LENGTH_SHORT).show();
+        }
+        boolean b = objuser.numeroRegistos("compania");
+        if (b){
+            objuser.agregar_compania("MUNICIPIO PAZ DE RIO","891855015","alcaldia@pazderio-boyaca.gov.co",
+                    "Carrera 3 No 7-50 Barrio Colonial","7865133", null,null,null,null);
+            Toast.makeText(this, "SE CREÓ LA COMPAÑÍA", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(this, "YA EXISTE LA COMPAÑÍA", Toast.LENGTH_SHORT).show();
         }
 
         Button btn = (Button) findViewById(R.id.btn_login);

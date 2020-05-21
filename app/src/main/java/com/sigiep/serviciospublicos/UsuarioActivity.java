@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.sigiep.serviciospublicos.controllers.UsuarioController;
+import com.sigiep.serviciospublicos.controllers.MainController;
 
 public class UsuarioActivity extends AppCompatActivity {
 
@@ -26,7 +26,7 @@ public class UsuarioActivity extends AppCompatActivity {
         txtContrasena = (EditText) findViewById(R.id.txt_contrasena);
         btnAgregar = (Button) findViewById(R.id.btn_agregar);
 
-        final UsuarioController usuarioController = new UsuarioController(this, "Servicios_publicos", null, 1);
+        final MainController usuarioController = new MainController(this, "Servicios_publicos", null, 1);
 
         btnAgregar.setOnClickListener(new View.OnClickListener() {
             @Override
