@@ -18,6 +18,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.sigiep.serviciospublicos.R;
 import com.sigiep.serviciospublicos.RegistrarLecturaFragment;
+import com.sigiep.serviciospublicos.controllers.ArchivoController;
 
 public class HomeFragment extends Fragment {
 
@@ -43,15 +44,18 @@ public class HomeFragment extends Fragment {
         btnRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "AAAAAAAAAAAAAAAA", Toast.LENGTH_SHORT).show();
+                /*Toast.makeText(getActivity(), "AAAAAAAAAAAAAAAA", Toast.LENGTH_SHORT).show();
 
                 RegistrarLecturaFragment fragment = new RegistrarLecturaFragment();
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ft.replace(R.id.child_fragment, fragment, "registrarLecturaFragment");
                 ft.addToBackStack(null);  //opcional, si quieres agregarlo a la pila
-                ft.commit();
+                ft.commit(); */
 
                 //tartActivity(new Intent(getActivity(), RegistrarLecturaFragment.class)); //REDIRIGE AL REGISTRAR
+
+                ArchivoController obj = new ArchivoController();
+                obj.importarArchivo();
 
         }
         });

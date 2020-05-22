@@ -26,40 +26,52 @@ public class MainController extends SQLiteOpenHelper {
                                                 "direccion text DEFAULT NULL, " +
                                                 "estrato text DEFAULT NULL, " +
                                                 "uso text DEFAULT NULL, " +
-                                                "mes_6 text DEFAULT NULL, " +
-                                                "mes_5 text DEFAULT NULL, " +
-                                                "mes_4 text DEFAULT NULL, " +
-                                                "mes_3 text DEFAULT NULL, " +
-                                                "mes_2 text DEFAULT NULL, " +
-                                                "mes_1 text DEFAULT NULL, " +
+                                                "consumo_mes_6 text DEFAULT NULL, " +
+                                                "consumo_mes_5 text DEFAULT NULL, " +
+                                                "consumo_mes_4 text DEFAULT NULL, " +
+                                                "consumo_mes_3 text DEFAULT NULL, " +
+                                                "consumo_mes_2 text DEFAULT NULL, " +
+                                                "consumo_mes_1 text DEFAULT NULL, " +
                                                 "promedio text DEFAULT NULL, " +
-                                                "lectura_anterior text DEFAULT NULL, " +
-                                                "lectura_actual text DEFAULT NULL, " +
-                                                "lectura text DEFAULT NULL, " +
+
                                                 "consumo_basico text DEFAULT NULL, " +
+                                                "mtrs_max_subsidio text DEFAULT NULL, " +
                                                 "deuda_anterior text DEFAULT NULL, " +
                                                 "atraso text DEFAULT NULL, " +
                                                 "estado_medidor text DEFAULT NULL, " +
                                                 "casa_vacia text DEFAULT NULL, " +
+                                                "lectura_anterior text DEFAULT NULL, " +
+                                                "lectura_actual text DEFAULT NULL, " +
+                                                "lectura text DEFAULT NULL, " +
+
                                                 "valor_mtr3_acueducto text DEFAULT NULL, " +
                                                 "cargo_fijo_acueducto text DEFAULT NULL, " +
                                                 "consumo_acueducto text DEFAULT NULL, " +
                                                 "contribucion_acueducto text DEFAULT NULL, " +
                                                 "intereses_mora_de_acueducto text DEFAULT NULL, " +
                                                 "subsidio_acueducto text DEFAULT NULL, " +
-                                                "acueducto_covid19 text DEFAULT NULL, " +
+                                                "acueducto_concepto1 text DEFAULT NULL, " +
+                                                "acueducto_concepto2 text DEFAULT NULL, " +
+                                                "acueducto_concepto3 text DEFAULT NULL, " +
+
                                                 "valor_mtr3_alcantarillado text DEFAULT NULL, " +
                                                 "cargo_fijo_alcantarillado text DEFAULT NULL, " +
                                                 "consumo_alcantarillado text DEFAULT NULL, " +
                                                 "contribucion_alcantarillado text DEFAULT NULL, " +
                                                 "intereses_mora_de_alcantarillado text DEFAULT NULL, " +
                                                 "subsidio_alcantarillado text DEFAULT NULL, " +
-                                                "alcantarillado_covid19 text DEFAULT NULL, " +
+                                                "alcantarillado_concepto1 text DEFAULT NULL, " +
+                                                "alcantarillado_concepto2 text DEFAULT NULL, " +
+                                                "alcantarillado_concepto3 text DEFAULT NULL, " +
+
                                                 "valor_mtr3_aseo text DEFAULT NULL, " +
                                                 "cargo_fijo_aseo text DEFAULT NULL, " +
                                                 "subsidio_aseo text DEFAULT NULL, " +
                                                 "intereses_de_mora_aseo text DEFAULT NULL, " +
-                                                "contribucion_aseo text DEFAULT NULL)";
+                                                "contribucion_aseo text DEFAULT NULL, " +
+                                                "aseo_concepto1 text DEFAULT NULL, " +
+                                                "aseo_concepto2 text DEFAULT NULL, " +
+                                                "aseo_concepto3 text DEFAULT NULL)";
 
 
     public MainController(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
@@ -143,5 +155,9 @@ public class MainController extends SQLiteOpenHelper {
             return false;
         else
             return true;
+    }
+
+    public void borrarRegistros(String table, SQLiteDatabase db){
+        db.execSQL("DELETE FROM " + table);
     }
 }
