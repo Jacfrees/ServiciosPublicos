@@ -1,108 +1,142 @@
-package com.sigiep.serviciospublicos;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
+package com.sigiep.serviciospublicos.ui.archivo;
 
 import android.Manifest;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+
+import com.sigiep.serviciospublicos.MainActivity;
+import com.sigiep.serviciospublicos.R;
 import com.sigiep.serviciospublicos.controllers.MainController;
+import com.sigiep.serviciospublicos.models.LecturaEntity;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+import static androidx.constraintlayout.widget.Constraints.TAG;
 
-    MainController objuser = new MainController(this, "Servicios_publicos", null, 1);
+public class ArchivoFragment extends Fragment {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    private ArchivoViewModel archivoViewModel;
+    Button btnImportar;
+    Button btnExportar;
 
-        pedirPermisos();
+    private String archivo = "miarchivo";
+    private String carpeta = "/Sigiep/";
+    String contenido;
+    File file;
+    String file_path = "";
+    String name = "";
 
-        boolean a = objuser.numeroRegistos("usuario");
-        if (a){
-            objuser.agregar("Administrador", "12345", "Admin", "Grupo123456");
-            Toast.makeText(this, "SE CREÓ EL ADMINISTRADOR", Toast.LENGTH_SHORT).show();
-        }else{
-            Toast.makeText(this, "YA EXISTE EL ADMINISTRADOR", Toast.LENGTH_SHORT).show();
-        }
-        boolean b = objuser.numeroRegistos("compania");
-        if (b){
-            objuser.agregar_compania("MUNICIPIO PAZ DE RIO","891855015","alcaldia@pazderio-boyaca.gov.co",
-                    "Carrera 3 No 7-50 Barrio Colonial","7865133", null,null,null,null);
-            Toast.makeText(this, "SE CREÓ LA COMPAÑÍA", Toast.LENGTH_SHORT).show();
-        }else{
-            Toast.makeText(this, "YA EXISTE LA COMPAÑÍA", Toast.LENGTH_SHORT).show();
-        }
 
-        Button btn = (Button) findViewById(R.id.btn_login);
-        btn.setOnClickListener(new View.OnClickListener() {
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
+        archivoViewModel =
+                ViewModelProviders.of(this).get(ArchivoViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_archivo, container, false);
+
+        archivoViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(@Nullable String s) {
+
+            }
+        });
+
+        btnImportar = root.findViewById(R.id.btn_importar_archivo); //ENLAZA BOTÓN CON FRAGMENT
+
+        btnImportar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText txtusu = (EditText) findViewById(R.id.usuario);
-                EditText txtcon = (EditText) findViewById(R.id.contrasena);
+
+                MainActivity obj = new MainActivity();
+                obj.importarArchivo();
+            }
+        });
+        btnExportar = root.findViewById(R.id.btn_exportar_archivo); //ENLAZA BOTÓN CON FRAGMENT
+
+        btnExportar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String filename = "Datos_exportados.txt";
+                String content = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+
+                file_path = (Environment.getExternalStorageDirectory() + carpeta);
+                File localFile = new File(file_path);
+                Toast.makeText(getActivity(), "" + file_path, Toast.LENGTH_SHORT).show();
+                if(!localFile.exists()){
+                    localFile.mkdirs();
+                }
+                file = new File(localFile, filename);
+                try {
+                    file.createNewFile();
+                    Toast.makeText(getActivity(), "Se creó el Archivo", Toast.LENGTH_SHORT).show();
+                }catch (IOException e){
+                    e.printStackTrace();
+                }
+                if (file.exists()){
+                    //leer();
+                    Toast.makeText(getActivity(), "El Archivo Existe", Toast.LENGTH_SHORT).show();
+                }
+
+
+
+
 
                 try {
-                    Cursor cursor = objuser.validarLogin(txtusu.getText().toString(),txtcon.getText().toString());
-                    if(cursor.getCount()>0){
-                        startActivity(new Intent(MainActivity.this, HomeActivity.class)); //REDIRIGE AL HOME
-                    }else{
-                        Toast.makeText(MainActivity.this, "USUARIO Y/O CONTRASEÑA INCORRECTOS", Toast.LENGTH_SHORT).show();
-                    }
-                    txtcon.setText("");
-                    txtcon.findFocus();
 
-                }catch (SQLException e){
+                    FileOutputStream fileOutputStream = getActivity().openFileOutput(filename, Context.MODE_PRIVATE);
+                    fileOutputStream.write(content.getBytes());
+                    fileOutputStream.close();
+                    System.out.println("SE CREÓ EL ARCHIVO");
+
+                }catch (Exception e){
                     e.printStackTrace();
+                    System.out.println("NO SE CREÓ EL ARCHIVO");
                 }
             }
         });
+        return root;
     }
 
-    public void pedirPermisos() {
-        // PERMISOS PARA ANDROID 6 O SUPERIOR
-        if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-
-            ActivityCompat.requestPermissions(MainActivity.this, new String[]
-                            {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                    0);
-
-        }
-    }
+    List<LecturaEntity> listaLectura = new ArrayList<>();
 
     public void importarArchivo(){
 
         //limpiarTablas("lectura");
 
         //RUTA DONDE ESTÁ EL ARCHIVO A LEER
-        File carpeta = new File(Environment.getExternalStorageDirectory() + "/ExportarSQLiteCSV");
-
-        String archivo = carpeta.toString() + "/" + "Lectura.csv";
+        File carpeta = new File(Environment.getExternalStorageDirectory() + "/ExportarSQLite");
+        String archivo = carpeta.toString() + "/" + "Lectura.scv";
 
         boolean isCreate = false;
         if (!carpeta.exists()){
             //Toast.makeText(this, "NO EXISTE LA CARPETA", Toast.LENGTH_SHORT).show();
-            carpeta.mkdirs();
 
+            isCreate =  carpeta.mkdir();
             System.out.println("NO EXISTE LA CARPETA");
 
         }else{
@@ -114,9 +148,9 @@ public class MainActivity extends AppCompatActivity {
                 BufferedReader bufferedReader = new BufferedReader(fileReader);
 
                 while ((cadena = bufferedReader.readLine()) != null){
-                    arreglo = cadena.split(";"); //CAMBIAR A ENTITY
+                    arreglo = cadena.split(","); //CAMBIAR A ENTITY
 
-                    MainController admin = new MainController(MainActivity.this, "Servicios_publicos", null, 1);
+                    MainController admin = new MainController(null, "Servicios_publicos", null, 1);
                     SQLiteDatabase db = admin.getWritableDatabase();
 
                     ContentValues registro = new ContentValues();
@@ -183,8 +217,8 @@ public class MainActivity extends AppCompatActivity {
                             )
                     ); */ //LLENAR ENTIDAD SI SE NECESITA
 
-                    db.insert("lectura", null, registro);
-                    db.close();
+                    //db.insert("lectura", null, registro);
+                    //db.close();
 
                     System.out.println("SE IMPORTÓ CORRECTAMENTE");
                 }
@@ -195,5 +229,4 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-
 }
