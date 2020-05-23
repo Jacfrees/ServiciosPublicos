@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Environment;
@@ -32,8 +33,10 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
@@ -79,28 +82,7 @@ public class ArchivoFragment extends Fragment {
         btnExportar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                String filename = "Datos_exportados.csv";
-                String content = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-
-                file_path = (Environment.getExternalStorageDirectory() + carpeta);
-                File localFile = new File(file_path);
-                Toast.makeText(getActivity(), "" + file_path, Toast.LENGTH_SHORT).show();
-                if(!localFile.exists()){
-                    localFile.mkdirs();
-                }
-                file = new File(localFile, filename);
-                try {
-                    file.createNewFile();
-                    Toast.makeText(getActivity(), "Se creó el Archivo", Toast.LENGTH_SHORT).show();
-                }catch (IOException e){
-                    e.printStackTrace();
-                }
-                if (file.exists()){
-                    //leer();
-                    Toast.makeText(getActivity(), "El Archivo Existe", Toast.LENGTH_SHORT).show();
-                }
-
+                exportarArchivo();
             }
         });
         return root;
@@ -113,15 +95,15 @@ public class ArchivoFragment extends Fragment {
         //limpiarTablas("lectura");
 
         //RUTA DONDE ESTÁ EL ARCHIVO A LEER
-        File carpeta = new File(Environment.getExternalStorageDirectory() + "/ExportarSQLite");
-        String archivo = carpeta.toString() + "/" + "Lectura.scv";
+        File carpeta = new File(Environment.getExternalStorageDirectory() + "/Sigiep");
+        String archivo = carpeta.toString() + "/" + "Lectura.csv";
 
         boolean isCreate = false;
         if (!carpeta.exists()){
             //Toast.makeText(this, "NO EXISTE LA CARPETA", Toast.LENGTH_SHORT).show();
 
             isCreate =  carpeta.mkdir();
-            System.out.println("NO EXISTE LA CARPETA");
+            Toast.makeText(getActivity(), "NO EXISTE LA CARPETA", Toast.LENGTH_SHORT).show();
 
         }else{
             String cadena;
@@ -132,9 +114,16 @@ public class ArchivoFragment extends Fragment {
                 BufferedReader bufferedReader = new BufferedReader(fileReader);
 
                 while ((cadena = bufferedReader.readLine()) != null){
-                    arreglo = cadena.split(","); //CAMBIAR A ENTITY
+                    cadena += ";NULL"+";NULL"+";NULL"+";NULL"+";NULL"+";NULL"+";NULL"+";NULL"+";NULL"+";NULL"+";NULL"+";NULL";
 
-                    MainController admin = new MainController(null, "Servicios_publicos", null, 1);
+                    arreglo = cadena.split(";");
+                    //System.out.println("ARRAY  "+Arrays.toString(arreglo));
+
+                    for (int i = 0; i <arreglo.length ; i++) {
+                            System.out.println("POSICIÓN  "+arreglo[i]);
+                    }
+
+                    MainController admin = new MainController(getActivity(), "Servicios_publicos", null, 1);
                     SQLiteDatabase db = admin.getWritableDatabase();
 
                     ContentValues registro = new ContentValues();
@@ -201,16 +190,56 @@ public class ArchivoFragment extends Fragment {
                             )
                     ); */ //LLENAR ENTIDAD SI SE NECESITA
 
-                    //db.insert("lectura", null, registro);
-                    //db.close();
-
-                    System.out.println("SE IMPORTÓ CORRECTAMENTE");
+                    db.insert("lectura", null, registro);
+                    db.close();
+                    Toast.makeText(getActivity(), "SE IMPORTÓ CORRECTAMENTE", Toast.LENGTH_SHORT).show();
                 }
 
             }catch (Exception e){
-                System.out.println("NO SE IMPORTÓ CORRECTAMENTE");
+                Toast.makeText(getActivity(), "NO SE IMPORTÓ CORRECTAMENTE", Toast.LENGTH_SHORT).show();
             }
         }
 
+    }
+
+    public void exportarArchivo() {
+        File carpeta = new File(Environment.getExternalStorageDirectory() + "/Sigiep");
+        String archivo = carpeta.toString() + "/" + "Lectura.csv";
+
+        boolean isCreate = false;
+        if(!carpeta.exists()) {
+            isCreate = carpeta.mkdir(); //SI NO EXISTE LA CARPETA LA CREA
+        }
+
+        try {
+            FileWriter fileWriter = new FileWriter(archivo);
+
+            MainController admin = new MainController(getActivity(), "Servicios_publicos", null, 1);
+
+            SQLiteDatabase db = admin.getWritableDatabase();
+
+            Cursor fila = db.rawQuery("select * from lectura", null);
+
+            if(fila != null && fila.getCount() != 0) {
+                fila.moveToFirst();
+                do {
+
+                    fileWriter.append(fila.getString(0));
+                    fileWriter.append(",");
+                    fileWriter.append(fila.getString(1));
+                    fileWriter.append(",");
+                    fileWriter.append(fila.getString(2));
+                    fileWriter.append("\n");
+
+                } while(fila.moveToNext());
+            } else {
+                Toast.makeText(getActivity(), "No hay registros.", Toast.LENGTH_LONG).show();
+            }
+
+            db.close();
+            fileWriter.close();
+            Toast.makeText(getActivity(), "SE CREO EL ARCHIVO CSV EXITOSAMENTE", Toast.LENGTH_LONG).show();
+
+        } catch (Exception e) { }
     }
 }
