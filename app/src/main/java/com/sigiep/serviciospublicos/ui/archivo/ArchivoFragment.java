@@ -71,8 +71,7 @@ public class ArchivoFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                MainActivity obj = new MainActivity();
-                obj.importarArchivo();
+                importarArchivo();
             }
         });
         btnExportar = root.findViewById(R.id.btn_exportar_archivo); //ENLAZA BOTÓN CON FRAGMENT
@@ -81,7 +80,7 @@ public class ArchivoFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                String filename = "Datos_exportados.txt";
+                String filename = "Datos_exportados.csv";
                 String content = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
 
                 file_path = (Environment.getExternalStorageDirectory() + carpeta);
@@ -102,21 +101,6 @@ public class ArchivoFragment extends Fragment {
                     Toast.makeText(getActivity(), "El Archivo Existe", Toast.LENGTH_SHORT).show();
                 }
 
-
-
-
-
-                try {
-
-                    FileOutputStream fileOutputStream = getActivity().openFileOutput(filename, Context.MODE_PRIVATE);
-                    fileOutputStream.write(content.getBytes());
-                    fileOutputStream.close();
-                    System.out.println("SE CREÓ EL ARCHIVO");
-
-                }catch (Exception e){
-                    e.printStackTrace();
-                    System.out.println("NO SE CREÓ EL ARCHIVO");
-                }
             }
         });
         return root;
