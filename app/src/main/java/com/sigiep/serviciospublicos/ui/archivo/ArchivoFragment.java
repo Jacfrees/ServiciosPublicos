@@ -98,105 +98,107 @@ public class ArchivoFragment extends Fragment {
         File carpeta = new File(Environment.getExternalStorageDirectory() + "/Sigiep");
         String archivo = carpeta.toString() + "/" + "Lectura.csv";
 
+        File archivo_1 = new File(Environment.getExternalStorageDirectory() + "/Sigiep/Lectura.csv");
+
         boolean isCreate = false;
         if (!carpeta.exists()){
-            //Toast.makeText(this, "NO EXISTE LA CARPETA", Toast.LENGTH_SHORT).show();
-
             isCreate =  carpeta.mkdir();
             Toast.makeText(getActivity(), "NO EXISTE LA CARPETA", Toast.LENGTH_SHORT).show();
+        }else {
+            if(archivo_1.exists()){
 
-        }else{
-            String cadena;
-            String[] arreglo;
+                String cadena;
+                String[] arreglo;
 
-            try{
-                FileReader fileReader = new FileReader(archivo);
-                BufferedReader bufferedReader = new BufferedReader(fileReader);
+                try{
+                    FileReader fileReader = new FileReader(archivo);
+                    BufferedReader bufferedReader = new BufferedReader(fileReader);
 
-                while ((cadena = bufferedReader.readLine()) != null){
-                    cadena += ";NULL"+";NULL"+";NULL"+";NULL"+";NULL"+";NULL"+";NULL"+";NULL"+";NULL"+";NULL"+";NULL"+";NULL";
+                    while ((cadena = bufferedReader.readLine()) != null){
+                        cadena += ";NULL"+";NULL"+";NULL"+";NULL"+";NULL"+";NULL"+";NULL"+";NULL"+";NULL"+";NULL"+";NULL"+";NULL";
 
-                    arreglo = cadena.split(";");
-                    //System.out.println("ARRAY  "+Arrays.toString(arreglo));
+                        arreglo = cadena.split(";");
+                        //System.out.println("ARRAY  "+Arrays.toString(arreglo));
 
-                    for (int i = 0; i <arreglo.length ; i++) {
+                        for (int i = 0; i <arreglo.length ; i++) {
                             System.out.println("POSICIÓN  "+arreglo[i]);
+                        }
+
+                        MainController admin = new MainController(getActivity(), "Servicios_publicos", null, 1);
+                        SQLiteDatabase db = admin.getWritableDatabase();
+
+                        ContentValues registro = new ContentValues();
+
+                        registro.put("identificador", arreglo[0]);
+                        registro.put("fecha", arreglo[1]);
+                        registro.put("fecha_vencimiento", arreglo[2]);
+                        registro.put("periodo", arreglo[3]);
+                        registro.put("numero_factura", arreglo[4]);
+                        registro.put("sector", arreglo[5]);
+                        registro.put("codigo_ruta", arreglo[6]);
+                        registro.put("codigo_interno", arreglo[7]);
+                        registro.put("usuario", arreglo[8]);
+                        registro.put("direccion", arreglo[9]);
+                        registro.put("estrato", arreglo[10]);
+                        registro.put("uso", arreglo[11]);
+                        registro.put("consumo_mes_6", arreglo[12]);
+                        registro.put("consumo_mes_5", arreglo[13]);
+                        registro.put("consumo_mes_4", arreglo[14]);
+                        registro.put("consumo_mes_3", arreglo[15]);
+                        registro.put("consumo_mes_2", arreglo[16]);
+                        registro.put("consumo_mes_1", arreglo[17]);
+                        registro.put("promedio", arreglo[18]);
+                        registro.put("consumo_basico", arreglo[19]);
+                        registro.put("mtrs_max_subsidio", arreglo[20]);
+                        registro.put("deuda_anterior", arreglo[21]);
+                        registro.put("atraso", arreglo[22]);
+                        registro.put("estado_medidor", arreglo[23]);
+                        registro.put("casa_vacia", arreglo[24]);
+                        registro.put("lectura_anterior", arreglo[25]);
+                        registro.put("lectura_actual", arreglo[26]);
+                        registro.put("lectura", arreglo[27]);
+                        registro.put("valor_mtr3_acueducto", arreglo[28]);
+                        registro.put("cargo_fijo_acueducto", arreglo[39]);
+                        registro.put("consumo_acueducto", arreglo[30]);
+                        registro.put("contribucion_acueducto", arreglo[31]);
+                        registro.put("intereses_mora_de_acueducto", arreglo[32]);
+                        registro.put("subsidio_acueducto", arreglo[33]);
+                        registro.put("acueducto_concepto1", arreglo[34]);
+                        registro.put("acueducto_concepto2", arreglo[35]);
+                        registro.put("acueducto_concepto3", arreglo[36]);
+                        registro.put("valor_mtr3_alcantarillado", arreglo[37]);
+                        registro.put("cargo_fijo_alcantarillado", arreglo[38]);
+                        registro.put("consumo_alcantarillado", arreglo[39]);
+                        registro.put("contribucion_alcantarillado", arreglo[40]);
+                        registro.put("intereses_mora_de_alcantarillado", arreglo[41]);
+                        registro.put("subsidio_alcantarillado", arreglo[42]);
+                        registro.put("alcantarillado_concepto1", arreglo[43]);
+                        registro.put("alcantarillado_concepto2", arreglo[44]);
+                        registro.put("alcantarillado_concepto3", arreglo[45]);
+                        registro.put("valor_mtr3_aseo", arreglo[46]);
+                        registro.put("cargo_fijo_aseo", arreglo[47]);
+                        registro.put("subsidio_aseo", arreglo[48]);
+                        registro.put("intereses_de_mora_aseo", arreglo[49]);
+                        registro.put("contribucion_aseo", arreglo[50]);
+                        registro.put("aseo_concepto1", arreglo[51]);
+                        registro.put("aseo_concepto2", arreglo[52]);
+                        registro.put("aseo_concepto3", arreglo[53]);
+
+                        db.insert("lectura", null, registro);
+                        db.close();
+                        //Toast.makeText(getActivity(), "SE IMPORTÓ CORRECTAMENTE", Toast.LENGTH_SHORT).show();
                     }
 
-                    MainController admin = new MainController(getActivity(), "Servicios_publicos", null, 1);
-                    SQLiteDatabase db = admin.getWritableDatabase();
+                    //File delete = new File(Environment.getExternalStorageDirectory() + "/Sigiep/Lectura.csv");
+                    archivo_1.delete();
+                    Toast.makeText(getActivity(), "SE ELIMINÓ EL ARCHIVO", Toast.LENGTH_SHORT).show();
 
-                    ContentValues registro = new ContentValues();
-
-                    registro.put("identificador", arreglo[0]);
-                    registro.put("fecha", arreglo[1]);
-                    registro.put("fecha_vencimiento", arreglo[2]);
-                    registro.put("periodo", arreglo[3]);
-                    registro.put("numero_factura", arreglo[4]);
-                    registro.put("sector", arreglo[5]);
-                    registro.put("codigo_ruta", arreglo[6]);
-                    registro.put("codigo_interno", arreglo[7]);
-                    registro.put("usuario", arreglo[8]);
-                    registro.put("direccion", arreglo[9]);
-                    registro.put("estrato", arreglo[10]);
-                    registro.put("uso", arreglo[11]);
-                    registro.put("consumo_mes_6", arreglo[12]);
-                    registro.put("consumo_mes_5", arreglo[13]);
-                    registro.put("consumo_mes_4", arreglo[14]);
-                    registro.put("consumo_mes_3", arreglo[15]);
-                    registro.put("consumo_mes_2", arreglo[16]);
-                    registro.put("consumo_mes_1", arreglo[17]);
-                    registro.put("promedio", arreglo[18]);
-                    registro.put("consumo_basico", arreglo[19]);
-                    registro.put("mtrs_max_subsidio", arreglo[20]);
-                    registro.put("deuda_anterior", arreglo[21]);
-                    registro.put("atraso", arreglo[22]);
-                    registro.put("estado_medidor", arreglo[23]);
-                    registro.put("casa_vacia", arreglo[24]);
-                    registro.put("lectura_anterior", arreglo[25]);
-                    registro.put("lectura_actual", arreglo[26]);
-                    registro.put("lectura", arreglo[27]);
-                    registro.put("valor_mtr3_acueducto", arreglo[28]);
-                    registro.put("cargo_fijo_acueducto", arreglo[39]);
-                    registro.put("consumo_acueducto", arreglo[30]);
-                    registro.put("contribucion_acueducto", arreglo[31]);
-                    registro.put("intereses_mora_de_acueducto", arreglo[32]);
-                    registro.put("subsidio_acueducto", arreglo[33]);
-                    registro.put("acueducto_concepto1", arreglo[34]);
-                    registro.put("acueducto_concepto2", arreglo[35]);
-                    registro.put("acueducto_concepto3", arreglo[36]);
-                    registro.put("valor_mtr3_alcantarillado", arreglo[37]);
-                    registro.put("cargo_fijo_alcantarillado", arreglo[38]);
-                    registro.put("consumo_alcantarillado", arreglo[39]);
-                    registro.put("contribucion_alcantarillado", arreglo[40]);
-                    registro.put("intereses_mora_de_alcantarillado", arreglo[41]);
-                    registro.put("subsidio_alcantarillado", arreglo[42]);
-                    registro.put("alcantarillado_concepto1", arreglo[43]);
-                    registro.put("alcantarillado_concepto2", arreglo[44]);
-                    registro.put("alcantarillado_concepto3", arreglo[45]);
-                    registro.put("valor_mtr3_aseo", arreglo[46]);
-                    registro.put("cargo_fijo_aseo", arreglo[47]);
-                    registro.put("subsidio_aseo", arreglo[48]);
-                    registro.put("intereses_de_mora_aseo", arreglo[49]);
-                    registro.put("contribucion_aseo", arreglo[50]);
-                    registro.put("aseo_concepto1", arreglo[51]);
-                    registro.put("aseo_concepto2", arreglo[52]);
-                    registro.put("aseo_concepto3", arreglo[53]);
-
-                    /*listaLectura.add(
-                            new LecturaEntity(
-                                    arreglo[0],
-                                    arreglo[1],
-                            )
-                    ); */ //LLENAR ENTIDAD SI SE NECESITA
-
-                    db.insert("lectura", null, registro);
-                    db.close();
-                    Toast.makeText(getActivity(), "SE IMPORTÓ CORRECTAMENTE", Toast.LENGTH_SHORT).show();
+                }catch (Exception e){
+                    Toast.makeText(getActivity(), "NO SE IMPORTÓ CORRECTAMENTE", Toast.LENGTH_SHORT).show();
                 }
-
-            }catch (Exception e){
-                Toast.makeText(getActivity(), "NO SE IMPORTÓ CORRECTAMENTE", Toast.LENGTH_SHORT).show();
+            }
+            else{
+                Toast.makeText(getActivity(), "POR FAVOR SUBA UN ARCHIVO", Toast.LENGTH_SHORT).show();
             }
         }
 
