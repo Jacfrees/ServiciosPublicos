@@ -1,11 +1,13 @@
 package com.sigiep.serviciospublicos.ui.home;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,13 +21,18 @@ import androidx.lifecycle.ViewModelProviders;
 import com.sigiep.serviciospublicos.R;
 import com.sigiep.serviciospublicos.RegistrarLecturaFragment;
 import com.sigiep.serviciospublicos.controllers.ArchivoController;
+import com.sigiep.serviciospublicos.controllers.MainController;
 import com.sigiep.serviciospublicos.ui.archivo.ArchivoFragment;
+
+import java.util.List;
 
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
     View vista;
     Button btnRegistrar;
+    Spinner spinner_sector;
+    Spinner spinner_ruta;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -40,6 +47,14 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        MainController admin = new MainController(getActivity(), "Servicios_publicos", null, 1);
+
+        SQLiteDatabase db = admin.getWritableDatabase();
+
+        List fila = (List) db.rawQuery("select * from lectura", null);
+
+        spinner_sector = root.findViewById(R.id.spinner_sector);
+        spinner_ruta = root.findViewById(R.id.spinner_ruta);
         btnRegistrar = root.findViewById(R.id.btn_registrar_lectura); //ENLAZA BOTÓN CON FRAGMENT
 
         btnRegistrar.setOnClickListener(new View.OnClickListener() {

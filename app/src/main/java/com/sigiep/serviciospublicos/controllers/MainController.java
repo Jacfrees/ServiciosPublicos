@@ -26,6 +26,7 @@ public class MainController extends SQLiteOpenHelper {
                                                 "direccion text DEFAULT NULL, " +
                                                 "estrato text DEFAULT NULL, " +
                                                 "uso text DEFAULT NULL, " +
+                                                "numero_medidor text DEFAULT NULL, " +
                                                 "consumo_mes_6 text DEFAULT NULL, " +
                                                 "consumo_mes_5 text DEFAULT NULL, " +
                                                 "consumo_mes_4 text DEFAULT NULL, " +
@@ -157,7 +158,8 @@ public class MainController extends SQLiteOpenHelper {
             return true;
     }
 
-    public void borrarRegistros(String table, SQLiteDatabase db){
+    public void borrarRegistros(String table){
+        SQLiteDatabase db = getWritableDatabase();
         db.execSQL("DELETE FROM " + table);
     }
 }

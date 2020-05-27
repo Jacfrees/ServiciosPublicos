@@ -1,7 +1,7 @@
 package com.sigiep.serviciospublicos.models;
 
 public class LecturaEntity {
-
+    
     String identificador;
     String fecha;
     String fecha_vencimiento;
@@ -14,53 +14,51 @@ public class LecturaEntity {
     String direccion;
     String estrato;
     String uso;
-    String mes_6;
-    String mes_5;
-    String mes_4;
-    String mes_3;
-    String mes_2;
-    String mes_1;
+    String numero_medidor;
+    String consumo_mes_6;
+    String consumo_mes_5;
+    String consumo_mes_4;
+    String consumo_mes_3;
+    String consumo_mes_2;
+    String consumo_mes_1;
     String promedio;
-    String lectura_anterior;
-    String lectura_actual;
-    String lectura;
     String consumo_basico;
+    String mtrs_max_subsidio;
     String deuda_anterior;
     String atraso;
     String estado_medidor;
     String casa_vacia;
+    String lectura_anterior;
+    String lectura_actual;
+    String lectura;
     String valor_mtr3_acueducto;
     String cargo_fijo_acueducto;
     String consumo_acueducto;
     String contribucion_acueducto;
     String intereses_mora_de_acueducto;
     String subsidio_acueducto;
-    String acueducto_covid19;
+    String acueducto_concepto1;
+    String acueducto_concepto2;
+    String acueducto_concepto3;
     String valor_mtr3_alcantarillado;
     String cargo_fijo_alcantarillado;
     String consumo_alcantarillado;
     String contribucion_alcantarillado;
     String intereses_mora_de_alcantarillado;
     String subsidio_alcantarillado;
-    String alcantarillado_covid19;
+    String alcantarillado_concepto1;
+    String alcantarillado_concepto2;
+    String alcantarillado_concepto3;
     String valor_mtr3_aseo;
     String cargo_fijo_aseo;
     String subsidio_aseo;
     String intereses_de_mora_aseo;
     String contribucion_aseo;
+    String aseo_concepto1;
+    String aseo_concepto2;
+    String aseo_concepto3;
 
-    public LecturaEntity(String identificador, String fecha, String fecha_vencimiento, String periodo, String numero_factura,
-                         String sector, String codigo_ruta, String codigo_interno, String usuario, String direccion,
-                         String estrato, String uso, String mes_6, String mes_5, String mes_4, String mes_3, String mes_2,
-                         String mes_1, String promedio, String lectura_anterior, String lectura_actual, String lectura,
-                         String consumo_basico, String deuda_anterior, String atraso, String estado_medidor,
-                         String casa_vacia, String valor_mtr3_acueducto, String cargo_fijo_acueducto,
-                         String consumo_acueducto, String contribucion_acueducto, String intereses_mora_de_acueducto,
-                         String subsidio_acueducto, String acueducto_covid19, String valor_mtr3_alcantarillado,
-                         String cargo_fijo_alcantarillado, String consumo_alcantarillado, String contribucion_alcantarillado,
-                         String intereses_mora_de_alcantarillado, String subsidio_alcantarillado, String alcantarillado_covid19,
-                         String valor_mtr3_aseo, String cargo_fijo_aseo, String subsidio_aseo, String intereses_de_mora_aseo,
-                         String contribucion_aseo) {
+    public LecturaEntity(String identificador, String fecha, String fecha_vencimiento, String periodo, String numero_factura, String sector, String codigo_ruta, String codigo_interno, String usuario, String direccion, String estrato, String uso, String numero_medidor, String consumo_mes_6, String consumo_mes_5, String consumo_mes_4, String consumo_mes_3, String consumo_mes_2, String consumo_mes_1, String promedio, String consumo_basico, String mtrs_max_subsidio, String deuda_anterior, String atraso, String estado_medidor, String casa_vacia, String lectura_anterior, String lectura_actual, String lectura, String valor_mtr3_acueducto, String cargo_fijo_acueducto, String consumo_acueducto, String contribucion_acueducto, String intereses_mora_de_acueducto, String subsidio_acueducto, String acueducto_concepto1, String acueducto_concepto2, String acueducto_concepto3, String valor_mtr3_alcantarillado, String cargo_fijo_alcantarillado, String consumo_alcantarillado, String contribucion_alcantarillado, String intereses_mora_de_alcantarillado, String subsidio_alcantarillado, String alcantarillado_concepto1, String alcantarillado_concepto2, String alcantarillado_concepto3, String valor_mtr3_aseo, String cargo_fijo_aseo, String subsidio_aseo, String intereses_de_mora_aseo, String contribucion_aseo, String aseo_concepto1, String aseo_concepto2, String aseo_concepto3) {
         this.identificador = identificador;
         this.fecha = fecha;
         this.fecha_vencimiento = fecha_vencimiento;
@@ -73,40 +71,49 @@ public class LecturaEntity {
         this.direccion = direccion;
         this.estrato = estrato;
         this.uso = uso;
-        this.mes_6 = mes_6;
-        this.mes_5 = mes_5;
-        this.mes_4 = mes_4;
-        this.mes_3 = mes_3;
-        this.mes_2 = mes_2;
-        this.mes_1 = mes_1;
+        this.numero_medidor = numero_medidor;
+        this.consumo_mes_6 = consumo_mes_6;
+        this.consumo_mes_5 = consumo_mes_5;
+        this.consumo_mes_4 = consumo_mes_4;
+        this.consumo_mes_3 = consumo_mes_3;
+        this.consumo_mes_2 = consumo_mes_2;
+        this.consumo_mes_1 = consumo_mes_1;
         this.promedio = promedio;
-        this.lectura_anterior = lectura_anterior;
-        this.lectura_actual = lectura_actual;
-        this.lectura = lectura;
         this.consumo_basico = consumo_basico;
+        this.mtrs_max_subsidio = mtrs_max_subsidio;
         this.deuda_anterior = deuda_anterior;
         this.atraso = atraso;
         this.estado_medidor = estado_medidor;
         this.casa_vacia = casa_vacia;
+        this.lectura_anterior = lectura_anterior;
+        this.lectura_actual = lectura_actual;
+        this.lectura = lectura;
         this.valor_mtr3_acueducto = valor_mtr3_acueducto;
         this.cargo_fijo_acueducto = cargo_fijo_acueducto;
         this.consumo_acueducto = consumo_acueducto;
         this.contribucion_acueducto = contribucion_acueducto;
         this.intereses_mora_de_acueducto = intereses_mora_de_acueducto;
         this.subsidio_acueducto = subsidio_acueducto;
-        this.acueducto_covid19 = acueducto_covid19;
+        this.acueducto_concepto1 = acueducto_concepto1;
+        this.acueducto_concepto2 = acueducto_concepto2;
+        this.acueducto_concepto3 = acueducto_concepto3;
         this.valor_mtr3_alcantarillado = valor_mtr3_alcantarillado;
         this.cargo_fijo_alcantarillado = cargo_fijo_alcantarillado;
         this.consumo_alcantarillado = consumo_alcantarillado;
         this.contribucion_alcantarillado = contribucion_alcantarillado;
         this.intereses_mora_de_alcantarillado = intereses_mora_de_alcantarillado;
         this.subsidio_alcantarillado = subsidio_alcantarillado;
-        this.alcantarillado_covid19 = alcantarillado_covid19;
+        this.alcantarillado_concepto1 = alcantarillado_concepto1;
+        this.alcantarillado_concepto2 = alcantarillado_concepto2;
+        this.alcantarillado_concepto3 = alcantarillado_concepto3;
         this.valor_mtr3_aseo = valor_mtr3_aseo;
         this.cargo_fijo_aseo = cargo_fijo_aseo;
         this.subsidio_aseo = subsidio_aseo;
         this.intereses_de_mora_aseo = intereses_de_mora_aseo;
         this.contribucion_aseo = contribucion_aseo;
+        this.aseo_concepto1 = aseo_concepto1;
+        this.aseo_concepto2 = aseo_concepto2;
+        this.aseo_concepto3 = aseo_concepto3;
     }
 
     public String getIdentificador() {
@@ -205,52 +212,60 @@ public class LecturaEntity {
         this.uso = uso;
     }
 
-    public String getMes_6() {
-        return mes_6;
+    public String getNumero_medidor() {
+        return numero_medidor;
     }
 
-    public void setMes_6(String mes_6) {
-        this.mes_6 = mes_6;
+    public void setNumero_medidor(String numero_medidor) {
+        this.numero_medidor = numero_medidor;
     }
 
-    public String getMes_5() {
-        return mes_5;
+    public String getConsumo_mes_6() {
+        return consumo_mes_6;
     }
 
-    public void setMes_5(String mes_5) {
-        this.mes_5 = mes_5;
+    public void setConsumo_mes_6(String consumo_mes_6) {
+        this.consumo_mes_6 = consumo_mes_6;
     }
 
-    public String getMes_4() {
-        return mes_4;
+    public String getConsumo_mes_5() {
+        return consumo_mes_5;
     }
 
-    public void setMes_4(String mes_4) {
-        this.mes_4 = mes_4;
+    public void setConsumo_mes_5(String consumo_mes_5) {
+        this.consumo_mes_5 = consumo_mes_5;
     }
 
-    public String getMes_3() {
-        return mes_3;
+    public String getConsumo_mes_4() {
+        return consumo_mes_4;
     }
 
-    public void setMes_3(String mes_3) {
-        this.mes_3 = mes_3;
+    public void setConsumo_mes_4(String consumo_mes_4) {
+        this.consumo_mes_4 = consumo_mes_4;
     }
 
-    public String getMes_2() {
-        return mes_2;
+    public String getConsumo_mes_3() {
+        return consumo_mes_3;
     }
 
-    public void setMes_2(String mes_2) {
-        this.mes_2 = mes_2;
+    public void setConsumo_mes_3(String consumo_mes_3) {
+        this.consumo_mes_3 = consumo_mes_3;
     }
 
-    public String getMes_1() {
-        return mes_1;
+    public String getConsumo_mes_2() {
+        return consumo_mes_2;
     }
 
-    public void setMes_1(String mes_1) {
-        this.mes_1 = mes_1;
+    public void setConsumo_mes_2(String consumo_mes_2) {
+        this.consumo_mes_2 = consumo_mes_2;
+    }
+
+    public String getConsumo_mes_1() {
+        return consumo_mes_1;
+    }
+
+    public void setConsumo_mes_1(String consumo_mes_1) {
+        this.consumo_mes_1 = consumo_mes_1;
     }
 
     public String getPromedio() {
@@ -261,36 +276,20 @@ public class LecturaEntity {
         this.promedio = promedio;
     }
 
-    public String getLectura_anterior() {
-        return lectura_anterior;
-    }
-
-    public void setLectura_anterior(String lectura_anterior) {
-        this.lectura_anterior = lectura_anterior;
-    }
-
-    public String getLectura_actual() {
-        return lectura_actual;
-    }
-
-    public void setLectura_actual(String lectura_actual) {
-        this.lectura_actual = lectura_actual;
-    }
-
-    public String getLectura() {
-        return lectura;
-    }
-
-    public void setLectura(String lectura) {
-        this.lectura = lectura;
-    }
-
     public String getConsumo_basico() {
         return consumo_basico;
     }
 
     public void setConsumo_basico(String consumo_basico) {
         this.consumo_basico = consumo_basico;
+    }
+
+    public String getMtrs_max_subsidio() {
+        return mtrs_max_subsidio;
+    }
+
+    public void setMtrs_max_subsidio(String mtrs_max_subsidio) {
+        this.mtrs_max_subsidio = mtrs_max_subsidio;
     }
 
     public String getDeuda_anterior() {
@@ -323,6 +322,30 @@ public class LecturaEntity {
 
     public void setCasa_vacia(String casa_vacia) {
         this.casa_vacia = casa_vacia;
+    }
+
+    public String getLectura_anterior() {
+        return lectura_anterior;
+    }
+
+    public void setLectura_anterior(String lectura_anterior) {
+        this.lectura_anterior = lectura_anterior;
+    }
+
+    public String getLectura_actual() {
+        return lectura_actual;
+    }
+
+    public void setLectura_actual(String lectura_actual) {
+        this.lectura_actual = lectura_actual;
+    }
+
+    public String getLectura() {
+        return lectura;
+    }
+
+    public void setLectura(String lectura) {
+        this.lectura = lectura;
     }
 
     public String getValor_mtr3_acueducto() {
@@ -373,12 +396,28 @@ public class LecturaEntity {
         this.subsidio_acueducto = subsidio_acueducto;
     }
 
-    public String getAcueducto_covid19() {
-        return acueducto_covid19;
+    public String getAcueducto_concepto1() {
+        return acueducto_concepto1;
     }
 
-    public void setAcueducto_covid19(String acueducto_covid19) {
-        this.acueducto_covid19 = acueducto_covid19;
+    public void setAcueducto_concepto1(String acueducto_concepto1) {
+        this.acueducto_concepto1 = acueducto_concepto1;
+    }
+
+    public String getAcueducto_concepto2() {
+        return acueducto_concepto2;
+    }
+
+    public void setAcueducto_concepto2(String acueducto_concepto2) {
+        this.acueducto_concepto2 = acueducto_concepto2;
+    }
+
+    public String getAcueducto_concepto3() {
+        return acueducto_concepto3;
+    }
+
+    public void setAcueducto_concepto3(String acueducto_concepto3) {
+        this.acueducto_concepto3 = acueducto_concepto3;
     }
 
     public String getValor_mtr3_alcantarillado() {
@@ -429,12 +468,28 @@ public class LecturaEntity {
         this.subsidio_alcantarillado = subsidio_alcantarillado;
     }
 
-    public String getAlcantarillado_covid19() {
-        return alcantarillado_covid19;
+    public String getAlcantarillado_concepto1() {
+        return alcantarillado_concepto1;
     }
 
-    public void setAlcantarillado_covid19(String alcantarillado_covid19) {
-        this.alcantarillado_covid19 = alcantarillado_covid19;
+    public void setAlcantarillado_concepto1(String alcantarillado_concepto1) {
+        this.alcantarillado_concepto1 = alcantarillado_concepto1;
+    }
+
+    public String getAlcantarillado_concepto2() {
+        return alcantarillado_concepto2;
+    }
+
+    public void setAlcantarillado_concepto2(String alcantarillado_concepto2) {
+        this.alcantarillado_concepto2 = alcantarillado_concepto2;
+    }
+
+    public String getAlcantarillado_concepto3() {
+        return alcantarillado_concepto3;
+    }
+
+    public void setAlcantarillado_concepto3(String alcantarillado_concepto3) {
+        this.alcantarillado_concepto3 = alcantarillado_concepto3;
     }
 
     public String getValor_mtr3_aseo() {
@@ -475,5 +530,29 @@ public class LecturaEntity {
 
     public void setContribucion_aseo(String contribucion_aseo) {
         this.contribucion_aseo = contribucion_aseo;
+    }
+
+    public String getAseo_concepto1() {
+        return aseo_concepto1;
+    }
+
+    public void setAseo_concepto1(String aseo_concepto1) {
+        this.aseo_concepto1 = aseo_concepto1;
+    }
+
+    public String getAseo_concepto2() {
+        return aseo_concepto2;
+    }
+
+    public void setAseo_concepto2(String aseo_concepto2) {
+        this.aseo_concepto2 = aseo_concepto2;
+    }
+
+    public String getAseo_concepto3() {
+        return aseo_concepto3;
+    }
+
+    public void setAseo_concepto3(String aseo_concepto3) {
+        this.aseo_concepto3 = aseo_concepto3;
     }
 }
