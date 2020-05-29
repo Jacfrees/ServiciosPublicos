@@ -15,6 +15,21 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="81dp"
+            android:layout_marginEnd="65dp"
+            android:layout_marginRight="65dp"
+            android:layout_marginBottom="48dp"
+            android:background="@drawable/btn_flechas"
+            android:foreground="@drawable/flechas_avance_blancas_ico"
+            android:padding="2dp"
+            app:layout_constraintBottom_toTopOf="@+id/images_pie"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_guardar_lectura" />
+
         <CheckBox
             android:id="@+id/checkBox2"
             android:layout_width="wrap_content"
@@ -42,7 +57,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_nombre" />
+            app:layout_constraintTop_toBottomOf="@+id/txt_nombre"
+            android:hint="0042"
+            android:textColorHint="#615D5D"/>
 
         <EditText
             android:id="@+id/txt_lectura"
@@ -78,7 +95,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_direccion" />
+            app:layout_constraintTop_toBottomOf="@+id/txt_direccion"
+            android:hint="Evangelista Caceres"
+            android:textColorHint="#615D5D"/>
 
         <EditText
             android:id="@+id/txt_direccion"
@@ -95,7 +114,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_codigo_ruta" />
+            app:layout_constraintTop_toBottomOf="@+id/txt_codigo_ruta"
+            android:hint="Calle 4 D - 26"
+            android:textColorHint="#615D5D"/>
 
         <Button
             android:id="@+id/btn_guardar_lectura"
@@ -154,6 +175,8 @@
             android:layout_marginRight="20dp"
             android:background="@drawable/cajas_de_texto"
             android:ems="10"
+            android:hint="9,008"
+            android:textColorHint="#615D5D"
             android:inputType="textPersonName"
             android:textCursorDrawable="@color/colorPrimaryDark"
             app:layout_constraintEnd_toEndOf="parent"
@@ -244,26 +267,37 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/imageView5"
-            android:layout_width="61dp"
-            android:layout_height="63dp"
-            android:background="@color/colorPrimaryDark"
-            android:src="@drawable/flechas_retroceso_blancas_ico"
-            tools:layout_editor_absoluteX="70dp"
-            tools:layout_editor_absoluteY="571dp"
-            />
-
         <Button
             android:id="@+id/button"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="65dp"
+            android:layout_marginLeft="65dp"
+            android:layout_marginTop="81dp"
+            android:layout_marginBottom="48dp"
             android:background="@drawable/btn_flechas"
             android:foreground="@drawable/flechas_retroceso_blancas_ico"
-            tools:layout_editor_absoluteX="262dp"
-            tools:layout_editor_absoluteY="563dp"
-            android:padding="2dp"
-            />
+            app:layout_constraintBottom_toTopOf="@+id/images_pie"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_guardar_lectura" />
+
+        <TextView
+            android:id="@+id/textViewTitulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="90dp"
+            android:layout_marginLeft="90dp"
+            android:layout_marginTop="36dp"
+            android:layout_marginEnd="90dp"
+            android:layout_marginRight="90dp"
+            android:layout_marginBottom="21dp"
+            android:textSize="25dp"
+            android:text="010 -SAN JORGE"
+            android:textColor="@color/colorPrimaryDark"
+            app:layout_constraintBottom_toTopOf="@+id/txt_codigo_ruta"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

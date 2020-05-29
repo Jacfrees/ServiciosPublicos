@@ -90,7 +90,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String option = (String) spinner_sector.getAdapter().getItem(position);
-                Toast.makeText(getActivity(), "Seleccionaste: " + option, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), "Seleccionaste: " + option, Toast.LENGTH_SHORT).show();
 
                 //Toast.makeText(getActivity(), "Seleccionaste: " + parent.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
 

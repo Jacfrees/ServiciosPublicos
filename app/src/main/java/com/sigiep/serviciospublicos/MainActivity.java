@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
             objuser.agregar("Administrador", "12345", "Admin", "Grupo123456");
             Toast.makeText(this, "SE CREÓ EL ADMINISTRADOR", Toast.LENGTH_SHORT).show();
         }else{
-            Toast.makeText(this, "YA EXISTE EL ADMINISTRADOR", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "YA EXISTE EL ADMINISTRADOR", Toast.LENGTH_SHORT).show();
         }
         boolean b = objuser.numeroRegistos("compania");
         if (b){
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
                     "Carrera 3 No 7-50 Barrio Colonial","7865133", null,null,null,null);
             Toast.makeText(this, "SE CREÓ LA COMPAÑÍA", Toast.LENGTH_SHORT).show();
         }else{
-            Toast.makeText(this, "YA EXISTE LA COMPAÑÍA", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "YA EXISTE LA COMPAÑÍA", Toast.LENGTH_SHORT).show();
         }
 
         Button btn = (Button) findViewById(R.id.btn_login);

@@ -14,15 +14,16 @@
     <string name="title_activity_home">HomeActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Sigiep</string>
-    <string name="nav_header_subtitle">www.sigiep.com</string>
+    <string name="nav_header_title">Municipio Paz De Río</string>
+    <string name="nav_header_subtitle">alcaldia@pazderio-boyaca.gov.co</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Configuración</string>
 
-    <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
+    <string name="menu_home">Inicio</string>
+    <string name="menu_gallery">Importar/Exportar Archivo</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="menu_registrar_usuario">Registrar Usuario</string>
+    <string name="menu_cerrar_sesion">Cerrar Sesión</string>
 
     <string name="home_second">Home Second</string>
 
