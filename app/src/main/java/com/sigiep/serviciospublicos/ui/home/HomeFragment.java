@@ -1,11 +1,14 @@
 package com.sigiep.serviciospublicos.ui.home;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -22,8 +25,10 @@ import com.sigiep.serviciospublicos.R;
 import com.sigiep.serviciospublicos.RegistrarLecturaFragment;
 import com.sigiep.serviciospublicos.controllers.ArchivoController;
 import com.sigiep.serviciospublicos.controllers.MainController;
+import com.sigiep.serviciospublicos.models.LecturaEntity;
 import com.sigiep.serviciospublicos.ui.archivo.ArchivoFragment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
@@ -33,6 +38,13 @@ public class HomeFragment extends Fragment {
     Button btnRegistrar;
     Spinner spinner_sector;
     Spinner spinner_ruta;
+
+    ArrayList<String> listaSector;
+    ArrayList<LecturaEntity> lecturaList;
+
+    ArrayList<String> listaRuta;
+    ArrayList<LecturaEntity> lecturaRuta;
+    MainController admin;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -47,13 +59,10 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        MainController admin = new MainController(getActivity(), "Servicios_publicos", null, 1);
+        admin = new MainController(getActivity(), "Servicios_publicos", null, 1);
 
-        SQLiteDatabase db = admin.getWritableDatabase();
 
-        List fila = (List) db.rawQuery("select * from lectura", null);
-
-        spinner_sector = root.findViewById(R.id.spinner_sector);
+        spinner_sector = (Spinner) root.findViewById(R.id.spinner_sector);
         spinner_ruta = root.findViewById(R.id.spinner_ruta);
         btnRegistrar = root.findViewById(R.id.btn_registrar_lectura); //ENLAZA BOTÓN CON FRAGMENT
 
@@ -69,11 +78,97 @@ public class HomeFragment extends Fragment {
                 ft.commit();
 
                 //startActivity(new Intent(getActivity(), RegistrarLecturaFragment.class)); //REDIRIGE AL REGISTRAR
-
-
         }
+        });
+
+        listarSector();
+
+        ArrayAdapter<String> adaptador = new ArrayAdapter<String>(getActivity(), R.layout.design_spinner_home, listaSector); //CARGA SPINNER SECTOR
+        spinner_sector.setAdapter(adaptador);
+
+        spinner_sector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String option = (String) spinner_sector.getAdapter().getItem(position);
+                Toast.makeText(getActivity(), "Seleccionaste: " + option, Toast.LENGTH_SHORT).show();
+
+                //Toast.makeText(getActivity(), "Seleccionaste: " + parent.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
+
+                listarRuta(option);
+
+                ArrayAdapter<String> adaptador = new ArrayAdapter<String>(getActivity(), R.layout.design_spinner_home, listaRuta); //CARGA SPINNER RUTA
+                spinner_ruta.setAdapter(adaptador);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        spinner_ruta.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
         });
 
         return root;
     }
+
+    private void listarSector() {
+        SQLiteDatabase db = admin.getReadableDatabase();
+
+        LecturaEntity objlectura = null;
+        lecturaList = new ArrayList<LecturaEntity>();
+
+        Cursor cursor = db.rawQuery("select distinct sector from lectura ", null);
+
+        while(cursor.moveToNext()){
+            objlectura = new LecturaEntity();
+            objlectura.setSector(cursor.getString(0));
+            lecturaList.add(objlectura);
+        }
+        obtenerListaSector();
+    }
+    private void obtenerListaSector(){
+        listaSector = new ArrayList<String>();
+        for (int i = 0; i <lecturaList.size() ; i++) {
+            if (i == 0){
+                listaSector.add(i, "Sector");
+            }else{
+                listaSector.add(lecturaList.get(i).getSector());
+            }
+        }
+    }
+
+    private void listarRuta(String paramSector) {
+        SQLiteDatabase db = admin.getReadableDatabase();
+
+        LecturaEntity objlectura = null;
+        lecturaList = new ArrayList<LecturaEntity>();
+
+        Cursor cursor = db.query("lectura", new String[] {"codigo_ruta"},
+                "sector = '"+paramSector+"' ",null, null,null,null);
+
+        while(cursor.moveToNext()){
+            objlectura = new LecturaEntity();
+            objlectura.setSector(cursor.getString(0));
+            lecturaList.add(objlectura);
+        }
+        obtenerListaRuta();
+    }
+    private void obtenerListaRuta(){
+        listaRuta = new ArrayList<String>();
+        for (int i = 0; i <lecturaList.size() ; i++) {
+            listaRuta.add(lecturaList.get(i).getSector());
+        }
+    }
+
 }

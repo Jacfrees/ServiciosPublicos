@@ -15,6 +15,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <CheckBox
+            android:id="@+id/checkBox2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="292dp"
+            android:layout_marginEnd="44dp"
+            android:layout_marginRight="44dp"
+            android:text="Casa vacía"
+            android:textColor="@color/colorPrimaryDark"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <EditText
             android:id="@+id/txt_medidor"
             android:layout_width="match_parent"
@@ -91,15 +103,17 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginLeft="32dp"
+            android:layout_marginTop="109dp"
             android:layout_marginEnd="32dp"
             android:layout_marginRight="32dp"
-            android:layout_marginBottom="140dp"
+            android:layout_marginBottom="250dp"
             android:background="@drawable/btn_login"
             android:text="@string/btn_guardar_imprimir"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_lectura" />
 
         <ImageView
             android:id="@+id/images_pie"
@@ -223,12 +237,33 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="232dp"
-            android:layout_marginEnd="44dp"
-            android:layout_marginRight="44dp"
+            android:layout_marginEnd="65dp"
+            android:layout_marginRight="65dp"
             android:text="Dañado"
             android:textColor="@color/colorPrimaryDark"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="61dp"
+            android:layout_height="63dp"
+            android:background="@color/colorPrimaryDark"
+            android:src="@drawable/flechas_retroceso_blancas_ico"
+            tools:layout_editor_absoluteX="70dp"
+            tools:layout_editor_absoluteY="571dp"
+            />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/btn_flechas"
+            android:foreground="@drawable/flechas_retroceso_blancas_ico"
+            tools:layout_editor_absoluteX="262dp"
+            tools:layout_editor_absoluteY="563dp"
+            android:padding="2dp"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

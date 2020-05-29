@@ -116,6 +116,10 @@ public class LecturaEntity {
         this.aseo_concepto3 = aseo_concepto3;
     }
 
+    public LecturaEntity() {
+
+    }
+
     public String getIdentificador() {
         return identificador;
     }
