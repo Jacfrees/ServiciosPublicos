@@ -63,7 +63,9 @@ public class Utilidades {
             "contribucion_aseo text DEFAULT NULL, " +
             "aseo_concepto1 text DEFAULT NULL, " +
             "aseo_concepto2 text DEFAULT NULL, " +
-            "aseo_concepto3 text DEFAULT NULL) ";
+            "aseo_concepto3 text DEFAULT NULL, " +
+            "fecha_lectura text DEFAULT NULL, " +
+            "documento_usuario text DEFAULT NULL) ";
 
     //"CHARACTER SET utf8mb4 COLLATE utf8mb4_bin";
 }

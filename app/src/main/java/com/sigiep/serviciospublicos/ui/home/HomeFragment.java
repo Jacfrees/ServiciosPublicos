@@ -43,8 +43,8 @@ public class HomeFragment extends Fragment {
     ArrayList<LecturaEntity> lecturaList;
 
     ArrayList<String> listaRuta;
-    ArrayList<LecturaEntity> lecturaRuta;
     MainController admin;
+    String val_sector = null;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -69,15 +69,24 @@ public class HomeFragment extends Fragment {
         btnRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "AAAAAAAAAAAAAAAA", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), "AAAAAAAAAAAAAAAA", Toast.LENGTH_SHORT).show();
 
                 RegistrarLecturaFragment fragment = new RegistrarLecturaFragment();
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.replace(R.id.child_fragment, fragment, "registrarLecturaFragment");
-                ft.addToBackStack(null);  //opcional, si quieres agregarlo a la pila
-                ft.commit();
+                FragmentTransaction ft = null;
+                if (getFragmentManager() != null) {
 
-                //startActivity(new Intent(getActivity(), RegistrarLecturaFragment.class)); //REDIRIGE AL REGISTRAR
+                    Bundle datosAEnviar = new Bundle();
+
+                    datosAEnviar.putString("valor_sector", val_sector);
+                    // ¡Importante! darle argumentos
+                    fragment.setArguments(datosAEnviar);
+
+                    ft = getFragmentManager().beginTransaction();
+                    ft.replace(R.id.child_fragment, fragment, "registrarLecturaFragment");
+                    ft.addToBackStack(null);  //opcional para agregarlo a la pila
+                    ft.commit();
+                }
+
         }
         });
 
@@ -90,6 +99,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String option = (String) spinner_sector.getAdapter().getItem(position);
+                val_sector = option;
                 //Toast.makeText(getActivity(), "Seleccionaste: " + option, Toast.LENGTH_SHORT).show();
 
                 //Toast.makeText(getActivity(), "Seleccionaste: " + parent.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
@@ -98,7 +108,6 @@ public class HomeFragment extends Fragment {
 
                 ArrayAdapter<String> adaptador = new ArrayAdapter<String>(getActivity(), R.layout.design_spinner_home, listaRuta); //CARGA SPINNER RUTA
                 spinner_ruta.setAdapter(adaptador);
-
             }
 
             @Override

@@ -197,6 +197,7 @@ public class ArchivoFragment extends Fragment {
                     //db.close();
 
                     archivo_1.delete();
+                    Toast.makeText(getActivity(), "SE IMPORTÓ CORRECTAMENTE", Toast.LENGTH_SHORT).show();
                     //Toast.makeText(getActivity(), "SE ELIMINÓ EL ARCHIVO", Toast.LENGTH_SHORT).show();
 
                 }catch (Exception e){
@@ -339,6 +340,10 @@ public class ArchivoFragment extends Fragment {
                     fileWriter.append(fila.getString(53));
                     fileWriter.append(";");
                     fileWriter.append(fila.getString(54));
+                    fileWriter.append(";");
+                    fileWriter.append(fila.getString(55));
+                    fileWriter.append(";");
+                    fileWriter.append(fila.getString(56));
                     fileWriter.append("\n");
 
                 } while(fila.moveToNext());
