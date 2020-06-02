@@ -45,6 +45,7 @@ public class HomeFragment extends Fragment {
     ArrayList<String> listaRuta;
     MainController admin;
     String val_sector = null;
+    String val_codRuta = null;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -69,7 +70,6 @@ public class HomeFragment extends Fragment {
         btnRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(getActivity(), "AAAAAAAAAAAAAAAA", Toast.LENGTH_SHORT).show();
 
                 RegistrarLecturaFragment fragment = new RegistrarLecturaFragment();
                 FragmentTransaction ft = null;
@@ -78,15 +78,14 @@ public class HomeFragment extends Fragment {
                     Bundle datosAEnviar = new Bundle();
 
                     datosAEnviar.putString("valor_sector", val_sector);
-                    // ¡Importante! darle argumentos
-                    fragment.setArguments(datosAEnviar);
+                    datosAEnviar.putString("valor_codRuta", val_codRuta); //ENVÍA DATOS CLAVE-VALOR A RegistrarLecturaFragment
 
+                    fragment.setArguments(datosAEnviar); //ARGUMENTOS A ENVIAR
                     ft = getFragmentManager().beginTransaction();
                     ft.replace(R.id.child_fragment, fragment, "registrarLecturaFragment");
                     ft.addToBackStack(null);  //opcional para agregarlo a la pila
                     ft.commit();
                 }
-
         }
         });
 
@@ -119,7 +118,7 @@ public class HomeFragment extends Fragment {
         spinner_ruta.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+                val_codRuta = (String) spinner_ruta.getAdapter().getItem(position);
             }
 
             @Override

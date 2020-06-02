@@ -16,7 +16,7 @@
         android:layout_height="match_parent">
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/button_next"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginTop="81dp"
@@ -31,16 +31,16 @@
             app:layout_constraintTop_toBottomOf="@+id/btn_guardar_lectura" />
 
         <CheckBox
-            android:id="@+id/checkBox2"
+            android:id="@+id/checkBox_casa_vacia"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="292dp"
+            android:layout_marginTop="33dp"
             android:layout_marginEnd="44dp"
             android:layout_marginRight="44dp"
             android:text="Casa vacía"
             android:textColor="@color/colorPrimaryDark"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/checkBox_dañado" />
 
         <EditText
             android:id="@+id/txt_medidor"
@@ -58,9 +58,9 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_nombre"
-            android:textColorHint="#615D5D"
+            android:textColorHint="#817F7F"
             android:enabled="false"
-            />
+            android:paddingLeft="10dp"/>
 
         <EditText
             android:id="@+id/txt_lectura"
@@ -92,18 +92,20 @@
             android:layout_marginRight="20dp"
             android:background="@drawable/cajas_de_texto"
             android:ems="10"
-            android:inputType="textPersonName"
+            android:gravity="start|top"
+            android:inputType="textMultiLine"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_direccion"
-            android:textColorHint="#615D5D"
-            android:enabled="false"/>
+            android:textColorHint="#817F7F"
+            android:enabled="false"
+            android:paddingLeft="10dp"/>
 
         <EditText
             android:id="@+id/txt_direccion"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="100dp"
             android:layout_marginLeft="100dp"
             android:layout_marginTop="18dp"
@@ -111,13 +113,15 @@
             android:layout_marginRight="20dp"
             android:background="@drawable/cajas_de_texto"
             android:ems="10"
-            android:inputType="textPersonName"
+            android:gravity="start|top"
+            android:inputType="textMultiLine"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_codigo_ruta"
-            android:textColorHint="#615D5D"
-            android:enabled="false"/>/>
+            android:textColorHint="#817F7F"
+            android:enabled="false"
+            android:paddingLeft="10dp"/>
 
         <Button
             android:id="@+id/btn_guardar_lectura"
@@ -176,14 +180,15 @@
             android:layout_marginRight="20dp"
             android:background="@drawable/cajas_de_texto"
             android:ems="10"
-            android:textColorHint="#615D5D"
+            android:textColorHint="#817F7F"
             android:inputType="textPersonName"
             android:textCursorDrawable="@color/colorPrimaryDark"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:enabled="false" />
+            android:enabled="false"
+            android:paddingLeft="10dp"/>
 
         <TextView
             android:id="@+id/textView2"
@@ -257,19 +262,19 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <CheckBox
-            android:id="@+id/checkBox"
+            android:id="@+id/checkBox_dañado"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="232dp"
-            android:layout_marginEnd="65dp"
-            android:layout_marginRight="65dp"
+            android:layout_marginTop="28dp"
+            android:layout_marginEnd="64dp"
+            android:layout_marginRight="64dp"
             android:text="Dañado"
             android:textColor="@color/colorPrimaryDark"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/txt_nombre" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/button_back"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginStart="65dp"
