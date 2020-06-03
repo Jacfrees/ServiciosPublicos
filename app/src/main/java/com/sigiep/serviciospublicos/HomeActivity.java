@@ -1,8 +1,10 @@
 package com.sigiep.serviciospublicos;
 
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 import android.view.Menu;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -16,6 +18,8 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import java.io.File;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -46,6 +50,14 @@ public class HomeActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        //RUTA DONDE ESTÁ EL ARCHIVO A LEER
+        File carpeta = new File(Environment.getExternalStorageDirectory() + "/Sigiep");
+
+        boolean isCreate = false;
+        if (!carpeta.exists()){
+            isCreate = carpeta.mkdir();
+        }
     }
 
     @Override

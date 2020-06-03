@@ -187,18 +187,10 @@ public class ArchivoFragment extends Fragment {
                             db.close();
                         }
                         numLine++;
-                        //Toast.makeText(getActivity(), "SE IMPORTÓ CORRECTAMENTE", Toast.LENGTH_SHORT).show();
                     }
-
-
-                    //File delete = new File(Environment.getExternalStorageDirectory() + "/Sigiep/Lectura.csv");
-                    //SQLiteDatabase db = admin.getWritableDatabase();
-                    //db.execSQL("delete from lectura where identificador = 'Identificador'");
-                    //db.close();
 
                     archivo_1.delete();
                     Toast.makeText(getActivity(), "SE IMPORTÓ CORRECTAMENTE", Toast.LENGTH_SHORT).show();
-                    //Toast.makeText(getActivity(), "SE ELIMINÓ EL ARCHIVO", Toast.LENGTH_SHORT).show();
 
                 }catch (Exception e){
                     Toast.makeText(getActivity(), "NO SE IMPORTÓ CORRECTAMENTE", Toast.LENGTH_SHORT).show();
