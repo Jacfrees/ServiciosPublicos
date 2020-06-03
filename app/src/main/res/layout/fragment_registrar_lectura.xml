@@ -8,9 +8,6 @@
     android:background="@drawable/fondo"
     >
 
-    <!-- TODO: Update blank fragment layout -->
-
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -79,12 +76,14 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_medidor"
-            app:layout_constraintVertical_bias="0.016" />
+            app:layout_constraintVertical_bias="0.016"
+            android:paddingLeft="10dp"
+            android:textColor="#000000"/>
 
         <EditText
             android:id="@+id/txt_nombre"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="50dp"
             android:layout_marginStart="100dp"
             android:layout_marginLeft="125dp"
             android:layout_marginTop="20dp"
@@ -105,7 +104,7 @@
         <EditText
             android:id="@+id/txt_direccion"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_marginStart="100dp"
             android:layout_marginLeft="100dp"
             android:layout_marginTop="18dp"
@@ -210,7 +209,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginLeft="32dp"
-            android:layout_marginTop="133dp"
+            android:layout_marginTop="140dp"
             android:text="Dirección:"
             android:textColor="@color/colorPrimaryDark"
             app:layout_constraintStart_toStartOf="parent"
@@ -222,12 +221,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginLeft="32dp"
-            android:layout_marginTop="185dp"
-            android:layout_marginEnd="33dp"
-            android:layout_marginRight="33dp"
+            android:layout_marginTop="205dp"
             android:text="Nombre:"
             android:textColor="@color/colorPrimaryDark"
-            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -237,12 +233,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginLeft="32dp"
-            android:layout_marginTop="244dp"
-            android:layout_marginEnd="33dp"
-            android:layout_marginRight="33dp"
+            android:layout_marginTop="280dp"
             android:text="Medidor:"
             android:textColor="@color/colorPrimaryDark"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -252,12 +245,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginLeft="32dp"
-            android:layout_marginTop="300dp"
-            android:layout_marginEnd="33dp"
-            android:layout_marginRight="33dp"
+            android:layout_marginTop="340dp"
             android:text="Lectura:"
             android:textColor="@color/colorPrimaryDark"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

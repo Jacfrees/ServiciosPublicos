@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +20,7 @@ import com.sigiep.serviciospublicos.models.LecturaEntity;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class RegistrarLecturaFragment extends Fragment {
 
@@ -30,6 +32,9 @@ public class RegistrarLecturaFragment extends Fragment {
     TextView txtlectura;
     Button btnAtras;
     Button btnNext;
+    Button btnlectura;
+    CheckBox checkDañado;
+    CheckBox checkCasaVacia;
 
     MainController admin;
 
@@ -52,9 +57,12 @@ public class RegistrarLecturaFragment extends Fragment {
         txtdireccion = root.findViewById(R.id.txt_direccion);
         txtnombre = root.findViewById(R.id.txt_nombre);
         txtmedidor = root.findViewById(R.id.txt_medidor);
+        txtlectura = root.findViewById(R.id.txt_lectura);
         btnAtras = root.findViewById(R.id.button_back);
         btnNext = root.findViewById(R.id.button_next);
-
+        btnlectura = root.findViewById(R.id.btn_guardar_lectura);
+        checkDañado = root.findViewById(R.id.checkBox_dañado);
+        checkCasaVacia = root.findViewById(R.id.checkBox_casa_vacia);
 
         Bundle datosRecuperados = getArguments();
         if (datosRecuperados == null) {
@@ -73,6 +81,7 @@ public class RegistrarLecturaFragment extends Fragment {
             createVista(obj);
         }
 
+
         btnAtras.setOnClickListener(new View.OnClickListener() { //BUTTON ATRÁS
             @Override
             public void onClick(View v) {
@@ -84,6 +93,17 @@ public class RegistrarLecturaFragment extends Fragment {
                         txtdireccion.setHint(obj.get(i).getDireccion());
                         txtnombre.setHint(obj.get(i).getUsuario());
                         txtmedidor.setHint(obj.get(i).getNumero_medidor());
+                        txtlectura.setText(obj.get(i).getLectura_actual());
+                        if (obj.get(i).getEstado_medidor().equals("1")){
+                            checkDañado.setChecked(true);
+                        }else {
+                            checkDañado.setChecked(false);
+                        }
+                        if (obj.get(i).getCasa_vacia().equals("1")){
+                            checkCasaVacia.setChecked(true);
+                        }else{
+                            checkCasaVacia.setChecked(false);
+                        }
                     }
                 }
             }
@@ -100,10 +120,74 @@ public class RegistrarLecturaFragment extends Fragment {
                         txtdireccion.setHint(obj.get(i).getDireccion());
                         txtnombre.setHint(obj.get(i).getUsuario());
                         txtmedidor.setHint(obj.get(i).getNumero_medidor());
+                        txtlectura.setText(obj.get(i).getLectura_actual());
+                        if (obj.get(i).getEstado_medidor().equals("1")){
+                            checkDañado.setChecked(true);
+                        }else {
+                            checkDañado.setChecked(false);
+                        }
+                        if (obj.get(i).getCasa_vacia().equals("1")){
+                            checkCasaVacia.setChecked(true);
+                        }else{
+                            checkCasaVacia.setChecked(false);
+                        }
                     }
                 }
             }
         });
+
+        btnlectura.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String txtlecturaActual = txtlectura.getText().toString();
+                String ruta = txtcodRuta.getHint().toString();
+
+                if(checkDañado.isChecked()) {
+                    admin.checkDanado("1", ruta);
+                    Toast.makeText(getActivity(), "CHECK A  ", Toast.LENGTH_SHORT).show();
+                }else{
+                    admin.checkDanado("2", ruta);
+                }
+                 if (checkCasaVacia.isChecked()){
+                     admin.checkCasaVacia("1", ruta);
+                    Toast.makeText(getActivity(), "CHECK B  ", Toast.LENGTH_SHORT).show();
+                }else{
+                     admin.checkCasaVacia("2", ruta);
+                 }
+
+                 List<LecturaEntity> obj = admin.findAllByCodRuta(ruta);
+                 int lecturaActual =  Integer.valueOf(obj.get(0).getLectura_actual());
+                 int lecturaAnterior =  Integer.valueOf(obj.get(0).getLectura_anterior());
+
+
+                int lectura = lecturaActual - lecturaAnterior; //DATO A GUARDAR EN EL CAMPO
+                System.out.println("VALOR LECTURA  "+ lectura);
+
+                int acueductoConsumo =  lectura * 988; //DATO A GUARDAR EN EL CAMPO acueductoConsumo
+                System.out.println("VALOR acueductoConsumo  "+ acueductoConsumo);
+
+                int acueductoSubsidio = (int) ((3854*0.4)+(acueductoConsumo*0.4)); //DATO A GUARDAR EN EL CAMPO acueductoSubsidio
+                System.out.println("VALOR acueductoSubsidio  "+ acueductoSubsidio);
+
+                int alcantarilladoConsumo = lectura * 281; //DATO A GUARDAR EN EL CAMPO alcantarilladoConsumo
+                System.out.println("VALOR alcantarilladoConsumo  "+ alcantarilladoConsumo);
+
+                int alcantarilladoSudsidio = (int) ((2222*0.4)+(alcantarilladoConsumo*0.4)); //DATO A GUARDAR EN EL CAMPO alcantarilladoSudsidio
+                System.out.println("VALOR alcantarilladoSudsidio  "+ alcantarilladoSudsidio);
+
+                admin.guardarLectura(txtlecturaActual,
+                        String.valueOf(lectura),
+                        String.valueOf(acueductoConsumo),
+                        String.valueOf(acueductoSubsidio),
+                        String.valueOf(alcantarilladoConsumo),
+                        String.valueOf(alcantarilladoSudsidio),
+                        ruta);
+
+                Toast.makeText(getActivity(), "LA LECTURA ES " + lectura, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
         return root;
     }
 
@@ -112,7 +196,7 @@ public class RegistrarLecturaFragment extends Fragment {
 
         ArrayList<LecturaEntity> lecturaList = new ArrayList<LecturaEntity>();
 
-        Cursor cursor = db.query("lectura", new String[] {"codigo_ruta", "direccion", "usuario", "numero_medidor"},
+        Cursor cursor = db.query("lectura", new String[] {"codigo_ruta", "direccion", "usuario", "numero_medidor", "lectura_actual","estado_medidor","casa_vacia"},
                 "sector = '"+paramSector+"' ",null, null,null,null);
 
         while(cursor.moveToNext()) {
@@ -121,6 +205,9 @@ public class RegistrarLecturaFragment extends Fragment {
             objlectura.setDireccion(cursor.getString(1));
             objlectura.setUsuario(cursor.getString(2));
             objlectura.setNumero_medidor(cursor.getString(3));
+            objlectura.setLectura_actual(cursor.getString(4));
+            objlectura.setEstado_medidor(cursor.getString(5));
+            objlectura.setCasa_vacia(cursor.getString(6));
             lecturaList.add(objlectura);
         }
 
@@ -140,6 +227,18 @@ public class RegistrarLecturaFragment extends Fragment {
                 txtdireccion.setHint(obj.get(i).getDireccion());
                 txtnombre.setHint(obj.get(i).getUsuario());
                 txtmedidor.setHint(obj.get(i).getNumero_medidor());
+                txtlectura.setText(obj.get(i).getLectura_actual());
+                if (obj.get(i).getEstado_medidor().equals("1")){
+                    checkDañado.setChecked(true);
+                }
+                if (obj.get(i).getCasa_vacia().equals("1")){
+                    checkCasaVacia.setChecked(true);
+                }
+                /*if(obj.get(i).getLectura_actual() != "" || obj.get(i).getLectura_actual() != null){
+                    btnlectura.setClickable(false);
+                }else {
+                    btnlectura.setClickable(false);
+                }*/
             }
         }
     }
