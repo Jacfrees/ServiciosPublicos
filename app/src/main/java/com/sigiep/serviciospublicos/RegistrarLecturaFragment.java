@@ -156,15 +156,50 @@ public class RegistrarLecturaFragment extends Fragment {
                  }
 
                  List<LecturaEntity> obj = admin.findAllByCodRuta(ruta);
-                 int lecturaActual =  Integer.valueOf(obj.get(0).getLectura_actual());
+                 int lecturaActual =  Integer.valueOf(txtlecturaActual);
                  int lecturaAnterior =  Integer.valueOf(obj.get(0).getLectura_anterior());
 
+                 int consumoMes6 =  Integer.valueOf(obj.get(0).getConsumo_mes_6());
+                 int consumoMes5 =  Integer.valueOf(obj.get(0).getConsumo_mes_5());
+                 int consumoMes4 =  Integer.valueOf(obj.get(0).getConsumo_mes_4());
+                 int consumoMes3 =  Integer.valueOf(obj.get(0).getConsumo_mes_3());
+                 int consumoMes2 =  Integer.valueOf(obj.get(0).getConsumo_mes_2());
+                 int consumoMes1 =  Integer.valueOf(obj.get(0).getConsumo_mes_1());
+                 int promedio =  Integer.valueOf(obj.get(0).getPromedio());
+                 int estadoMedidor =  Integer.valueOf(obj.get(0).getEstado_medidor());
+                 int consumoBasico =  Integer.valueOf(obj.get(0).getConsumo_basico());
+                 int casaVacia =  Integer.valueOf(obj.get(0).getCasa_vacia());
 
-                int lectura = lecturaActual - lecturaAnterior; //DATO A GUARDAR EN EL CAMPO
-                System.out.println("VALOR LECTURA  "+ lectura);
+                 //#######################################################################
+                //VARIABLES FINALES
+                int lectura = 0; //DATO A GUARDAR EN EL CAMPO lectura
+                int acueductoConsumo = 0; //DATO A GUARDAR EN EL CAMPO acueductoConsumo
 
-                int acueductoConsumo =  lectura * 988; //DATO A GUARDAR EN EL CAMPO acueductoConsumo
-                System.out.println("VALOR acueductoConsumo  "+ acueductoConsumo);
+                if((lecturaActual < 0  || estadoMedidor == 1) &&
+                        (consumoMes6 > 0 &&
+                         consumoMes5 > 0 &&
+                         consumoMes4 > 0 &&
+                         consumoMes3 > 0 &&
+                         consumoMes2 > 0 &&
+                         consumoMes1 > 0)){
+
+                    lectura = promedio;
+                    System.out.println("LA LECTURA ES promedio "+ lectura);
+                }else if(lecturaActual > 0 && estadoMedidor == 2) {
+                    lectura = lecturaActual - lecturaAnterior;
+                    System.out.println("LA LECTURA ES lecturaActual - lecturaAnterior "+ lectura);
+                }else {
+                    lectura = consumoBasico;
+                    System.out.println("LA LECTURA ES consumoBasico "+ lectura);
+                }
+
+                if(casaVacia == 1){
+                    acueductoConsumo = 0;
+                    System.out.println("VALOR acueductoConsumo, casaVacia == 2 "+ acueductoConsumo);
+                }else {
+                    acueductoConsumo = lectura * 988;
+                    System.out.println("VALOR acueductoConsumo casaVacia == 1 "+ acueductoConsumo);
+                }
 
                 int acueductoSubsidio = (int) ((3854*0.4)+(acueductoConsumo*0.4)); //DATO A GUARDAR EN EL CAMPO acueductoSubsidio
                 System.out.println("VALOR acueductoSubsidio  "+ acueductoSubsidio);
