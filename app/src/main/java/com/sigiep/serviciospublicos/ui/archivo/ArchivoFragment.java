@@ -90,7 +90,7 @@ public class ArchivoFragment extends Fragment {
 
     List<LecturaEntity> listaLectura = new ArrayList<>();
 
-    public void importarArchivo(){
+    private void importarArchivo(){
 
         //RUTA DONDE ESTÁ EL ARCHIVO A LEER
         File carpeta = new File(Environment.getExternalStorageDirectory() + "/Sigiep");
@@ -183,6 +183,18 @@ public class ArchivoFragment extends Fragment {
                             registro.put("aseo_concepto2", arreglo[53]);
                             registro.put("aseo_concepto3", arreglo[54]);
 
+                            registro.put("matricula", arreglo[55]);
+                            registro.put("medidor", arreglo[56]);
+                            registro.put("llave_o_tapas", arreglo[57]);
+                            registro.put("financiacion", arreglo[58]);
+                            registro.put("reconexion", arreglo[59]);
+                            registro.put("fecha_lectura", arreglo[60]);
+                            registro.put("aforador", arreglo[61]);
+                            registro.put("servicio_acueducto", arreglo[62]);
+                            registro.put("servicio_alcantarillado", arreglo[63]);
+                            registro.put("servicio_aseo", arreglo[64]);
+
+
                             db.insert("lectura", null, registro);
                             db.close();
                         }
@@ -202,7 +214,7 @@ public class ArchivoFragment extends Fragment {
         }
     }
 
-    public void exportarArchivo() {
+    private void exportarArchivo() {
         File carpeta = new File(Environment.getExternalStorageDirectory() + "/Sigiep");
         String archivo = carpeta.toString() + "/" + "LecturaExportada.csv";
 
@@ -336,6 +348,22 @@ public class ArchivoFragment extends Fragment {
                     fileWriter.append(fila.getString(55));
                     fileWriter.append(";");
                     fileWriter.append(fila.getString(56));
+                    fileWriter.append(";");
+                    fileWriter.append(fila.getString(57));
+                    fileWriter.append(";");
+                    fileWriter.append(fila.getString(58));
+                    fileWriter.append(";");
+                    fileWriter.append(fila.getString(59));
+                    fileWriter.append(";");
+                    fileWriter.append(fila.getString(60));
+                    fileWriter.append(";");
+                    fileWriter.append(fila.getString(61));
+                    fileWriter.append(";");
+                    fileWriter.append(fila.getString(62));
+                    fileWriter.append(";");
+                    fileWriter.append(fila.getString(63));
+                    fileWriter.append(";");
+                    fileWriter.append(fila.getString(64));
                     fileWriter.append("\n");
 
                 } while(fila.moveToNext());

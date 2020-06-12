@@ -7,6 +7,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.sigiep.serviciospublicos.models.CompaniaEntity;
 import com.sigiep.serviciospublicos.models.LecturaEntity;
 import com.sigiep.serviciospublicos.utilities.Utilidades;
 
@@ -54,7 +55,7 @@ public class MainController extends SQLiteOpenHelper {
         this.getWritableDatabase().insert("usuario", null, valores);
     }
 
-    public void agregar_compania(String nombre,String nit,String correo,String direccion,String telefono,String slogan,String ruta_logo,String ciudad,String codigo_ean){
+    public void agregar_compania(String nombre,String nit,String correo,String direccion,String telefono,String slogan,String ruta_logo,String ciudad,String codigo_ean,String nuir){
         ContentValues valores = new ContentValues();
         valores.put("nombre", nombre);
         valores.put("nit", nit);
@@ -65,6 +66,7 @@ public class MainController extends SQLiteOpenHelper {
         valores.put("ruta_logo", ruta_logo);
         valores.put("ciudad", ciudad);
         valores.put("codigo_ean", codigo_ean);
+        valores.put("nuir", nuir);
 
         this.getWritableDatabase().insert("compania", null, valores);
     }
@@ -198,7 +200,16 @@ public class MainController extends SQLiteOpenHelper {
                         cursor.getString(53),
                         cursor.getString(54),
                         cursor.getString(55),
-                        cursor.getString(56)
+                        cursor.getString(56),
+
+                        cursor.getString(57),
+                        cursor.getString(58),
+                        cursor.getString(59),
+                        cursor.getString(60),
+                        cursor.getString(61),
+                        cursor.getString(62),
+                        cursor.getString(63),
+                        cursor.getString(64)
                         ));
             }while (cursor.moveToNext());
 
@@ -206,6 +217,35 @@ public class MainController extends SQLiteOpenHelper {
         cursor.close();
 
         return lectura;
+    }
+
+    public List<CompaniaEntity> findAllCompania(){
+         SQLiteDatabase db = getReadableDatabase();
+
+        String a = "select * from compania ";
+        Cursor cursor = db.rawQuery("select * from compania", null);
+        List<CompaniaEntity> comp = new ArrayList<>();
+        if (cursor.moveToFirst()){
+            do {
+                comp.add(new CompaniaEntity(
+                        cursor.getInt(0),
+                        cursor.getString(1),
+                        cursor.getString(2),
+                        cursor.getString(3),
+                        cursor.getString(4),
+                        cursor.getString(5),
+                        cursor.getString(6),
+                        cursor.getString(7),
+                        cursor.getString(8),
+                        cursor.getString(9),
+                        cursor.getString(10)
+                ));
+            }while (cursor.moveToNext());
+
+        }
+        cursor.close();
+
+        return comp;
     }
 
 }

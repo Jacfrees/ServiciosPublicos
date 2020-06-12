@@ -3,10 +3,17 @@ package com.sigiep.serviciospublicos;
 import android.content.ClipData;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.pdf.PdfDocument;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +22,14 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.sigiep.serviciospublicos.controllers.FacturaController;
 import com.sigiep.serviciospublicos.controllers.MainController;
+import com.sigiep.serviciospublicos.models.CompaniaEntity;
 import com.sigiep.serviciospublicos.models.LecturaEntity;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -40,6 +52,7 @@ public class RegistrarLecturaFragment extends Fragment {
 
     int index = 0;
     ArrayList<LecturaEntity> obj;
+    Bitmap bmp, scaledbmp; //PARA AGREGAR IMÁGENES
 
     public RegistrarLecturaFragment() {
         // Required empty public constructor
@@ -63,6 +76,8 @@ public class RegistrarLecturaFragment extends Fragment {
         btnlectura = root.findViewById(R.id.btn_guardar_lectura);
         checkDañado = root.findViewById(R.id.checkBox_dañado);
         checkCasaVacia = root.findViewById(R.id.checkBox_casa_vacia);
+        bmp = BitmapFactory.decodeResource(getResources(), R.drawable.logo_paz_de_rio);
+        scaledbmp = Bitmap.createScaledBitmap(bmp,55,55,false); //TAMAÑO DEL LOGO
 
         Bundle datosRecuperados = getArguments();
         if (datosRecuperados == null) {
@@ -142,86 +157,151 @@ public class RegistrarLecturaFragment extends Fragment {
                 String txtlecturaActual = txtlectura.getText().toString();
                 String ruta = txtcodRuta.getHint().toString();
 
-                if(checkDañado.isChecked()) {
-                    admin.checkDanado("1", ruta);
-                    Toast.makeText(getActivity(), "CHECK A  ", Toast.LENGTH_SHORT).show();
-                }else{
-                    admin.checkDanado("2", ruta);
+                if (txtlecturaActual.equals("")) {
+                    Toast.makeText(getActivity(), "Por Favor Ingresa Una Lectura", Toast.LENGTH_SHORT).show();
+                } else {
+
+                    if (checkDañado.isChecked()) {
+                        admin.checkDanado("1", ruta);
+                        Toast.makeText(getActivity(), "CHECK A  ", Toast.LENGTH_SHORT).show();
+                    } else {
+                        admin.checkDanado("2", ruta);
+                    }
+                    if (checkCasaVacia.isChecked()) {
+                        admin.checkCasaVacia("1", ruta);
+                        Toast.makeText(getActivity(), "CHECK B  ", Toast.LENGTH_SHORT).show();
+                    } else {
+                        admin.checkCasaVacia("2", ruta);
+                    }
+
+                    List<LecturaEntity> obj = admin.findAllByCodRuta(ruta);
+
+                    int lecturaAnterior = Integer.valueOf(obj.get(0).getLectura_anterior());
+                    int lecturaActual = Integer.valueOf(txtlecturaActual);
+
+                    String consumoMes6 = obj.get(0).getConsumo_mes_6();
+                    String consumoMes5 = obj.get(0).getConsumo_mes_5();
+                    String consumoMes4 = obj.get(0).getConsumo_mes_4();
+                    String consumoMes3 = obj.get(0).getConsumo_mes_3();
+                    String consumoMes2 = obj.get(0).getConsumo_mes_2();
+                    String consumoMes1 = obj.get(0).getConsumo_mes_1();
+                    int promedio = Integer.valueOf(obj.get(0).getPromedio());
+                    int estadoMedidor = Integer.valueOf(obj.get(0).getEstado_medidor());
+                    int consumoBasico = Integer.valueOf(obj.get(0).getConsumo_basico());
+                    int casaVacia = Integer.valueOf(obj.get(0).getCasa_vacia());
+                    int valorMtr3Acueducto = Integer.valueOf(obj.get(0).getValor_mtr3_acueducto());
+                    int cargoFijoAcueducto = Integer.valueOf(obj.get(0).getCargo_fijo_acueducto());
+                    int mtrsMaxSubsidio = Integer.valueOf(obj.get(0).getMtrs_max_subsidio());
+
+                    int valorMtr3Alcantarillado = Integer.valueOf(obj.get(0).getValor_mtr3_alcantarillado());
+                    int cargoFijoAlcantarillado = Integer.valueOf(obj.get(0).getCargo_fijo_alcantarillado());
+
+                    int servicioAcueducto = Integer.valueOf(obj.get(0).getServicio_acueducto());
+                    int servicioAlcantarillado = Integer.valueOf(obj.get(0).getServicio_alcantarillado());
+                    int servicioAseo = Integer.valueOf(obj.get(0).getServicio_aseo());
+
+                    //#######################################################################
+                    //VARIABLES FINALES
+                    int lectura = 0; //DATO A GUARDAR EN EL CAMPO lectura
+                    int consumoAcueducto = 0; //DATO A GUARDAR EN EL CAMPO acueductoConsumo
+                    int subsidioAcueducto = 0; //DATO A GUARDAR EN EL CAMPO subsidioAcueducto
+                    int consumoAlcantarillado = 0; //DATO A GUARDAR EN EL CAMPO consumoAlcantarillado
+                    int subsidioAlcantarillado = 0; //DATO A GUARDAR EN EL CAMPO subsidioAlcantarillado
+
+                    //↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ CÁLCULOS PARA EL CAMPO LECTURA
+                    if ((lecturaActual < 0 || estadoMedidor == 1) &&
+                            (consumoMes6 != "" &&
+                                    consumoMes5 != "" &&
+                                    consumoMes4 != "" &&
+                                    consumoMes3 != "" &&
+                                    consumoMes2 != "" &&
+                                    consumoMes1 != "")) {
+
+                        lectura = promedio;
+                        System.out.println("LA LECTURA ES promedio " + lectura);
+                    } else if (lecturaActual > 0 && estadoMedidor == 2) {
+                        lectura = lecturaActual - lecturaAnterior;
+                        System.out.println("LA LECTURA ES lecturaActual - lecturaAnterior " + lectura);
+                    } else {
+                        lectura = consumoBasico;
+                        System.out.println("LA LECTURA ES consumoBasico " + lectura);
+                    }
+
+                    //↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ CÁLCULOS PARA EL CAMPO CONSUMO ACUEDUCTO
+                    if (servicioAcueducto == 1) {
+                        if (casaVacia == 1) {
+                            consumoAcueducto = 0;
+                            System.out.println("VALOR consumoAcueducto, casaVacia == 1 " + consumoAcueducto);
+                        } else {
+                            consumoAcueducto = lectura * valorMtr3Acueducto;
+                            System.out.println("VALOR consumoAcueducto casaVacia == 2 " + consumoAcueducto);
+                        }
+                    } else {
+                        consumoAcueducto = 0;
+                        System.out.println("NO TIENE SERVICIO DE Acueducto " + consumoAcueducto);
+                    }
+
+                    //↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ CÁLCULOS PARA EL CAMPO SUBSIDIO ACUEDUCTO
+                    if (servicioAcueducto == 1) {
+                        int val = (int) (cargoFijoAcueducto * 0.4);
+                        if (lectura > 30) {
+                            subsidioAcueducto = (int) (val + (valorMtr3Acueducto * mtrsMaxSubsidio) * 0.4);
+                        } else {
+                            subsidioAcueducto = (int) (val + consumoAcueducto * 0.4);
+                        }
+                    } else {
+                        subsidioAcueducto = 0;
+                        System.out.println("NO TIENE SERVICIO DE Acueducto " + subsidioAcueducto);
+                    }
+
+                    //↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ CÁLCULOS PARA EL CAMPO CONSUMO ALCANTARILLADO
+                    if (servicioAlcantarillado == 1) {
+                        if (casaVacia == 1) {
+                            consumoAlcantarillado = 0;
+                            System.out.println("VALOR consumoAlcantarillado, casaVacia == 1 " + consumoAlcantarillado);
+                        } else {
+                            consumoAlcantarillado = lectura * valorMtr3Alcantarillado;
+                            System.out.println("VALOR consumoAlcantarillado casaVacia == 2 " + consumoAlcantarillado);
+                        }
+                    } else {
+                        consumoAlcantarillado = 0;
+                        System.out.println("NO TIENE SERVICIO DE Alcantarillado " + consumoAlcantarillado);
+                    }
+
+                    //↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ CÁLCULOS PARA EL CAMPO SUBSIDIO ALCANTARILLADO
+                    if (servicioAlcantarillado == 1) {
+                        int val = (int) (cargoFijoAlcantarillado * 0.4);
+                        if (lectura > 30) {
+                            subsidioAlcantarillado = (int) (val + (valorMtr3Alcantarillado * mtrsMaxSubsidio) * 0.4);
+                        } else {
+                            subsidioAlcantarillado = (int) (val + consumoAlcantarillado * 0.4);
+                        }
+                    } else {
+                        subsidioAlcantarillado = 0;
+                        System.out.println("NO TIENE SERVICIO DE Alcantarillado " + subsidioAlcantarillado);
+                    }
+
+                    System.out.println("VALOR DE lectura " + lectura);
+                    System.out.println("VALOR DE consumoAcueducto " + consumoAcueducto);
+                    System.out.println("VALOR DE subsidioAcueducto " + subsidioAcueducto);
+                    System.out.println("VALOR DE consumoAlcantarillado " + consumoAlcantarillado);
+                    System.out.println("VALOR DE subsidioAlcantarillado " + subsidioAlcantarillado);
+
+                    /*admin.guardarLectura(txtlecturaActual,
+                            String.valueOf(lectura),
+                            String.valueOf(consumoAcueducto),
+                            String.valueOf(subsidioAcueducto),
+                            String.valueOf(consumoAlcantarillado),
+                            String.valueOf(subsidioAlcantarillado),
+                            ruta); */
+
+                    Toast.makeText(getActivity(), "LA LECTURA ES " + lectura, Toast.LENGTH_SHORT).show();
                 }
-                 if (checkCasaVacia.isChecked()){
-                     admin.checkCasaVacia("1", ruta);
-                    Toast.makeText(getActivity(), "CHECK B  ", Toast.LENGTH_SHORT).show();
-                }else{
-                     admin.checkCasaVacia("2", ruta);
-                 }
 
-                 List<LecturaEntity> obj = admin.findAllByCodRuta(ruta);
-                 int lecturaActual =  Integer.valueOf(txtlecturaActual);
-                 int lecturaAnterior =  Integer.valueOf(obj.get(0).getLectura_anterior());
-
-                 int consumoMes6 =  Integer.valueOf(obj.get(0).getConsumo_mes_6());
-                 int consumoMes5 =  Integer.valueOf(obj.get(0).getConsumo_mes_5());
-                 int consumoMes4 =  Integer.valueOf(obj.get(0).getConsumo_mes_4());
-                 int consumoMes3 =  Integer.valueOf(obj.get(0).getConsumo_mes_3());
-                 int consumoMes2 =  Integer.valueOf(obj.get(0).getConsumo_mes_2());
-                 int consumoMes1 =  Integer.valueOf(obj.get(0).getConsumo_mes_1());
-                 int promedio =  Integer.valueOf(obj.get(0).getPromedio());
-                 int estadoMedidor =  Integer.valueOf(obj.get(0).getEstado_medidor());
-                 int consumoBasico =  Integer.valueOf(obj.get(0).getConsumo_basico());
-                 int casaVacia =  Integer.valueOf(obj.get(0).getCasa_vacia());
-
-                 //#######################################################################
-                //VARIABLES FINALES
-                int lectura = 0; //DATO A GUARDAR EN EL CAMPO lectura
-                int acueductoConsumo = 0; //DATO A GUARDAR EN EL CAMPO acueductoConsumo
-
-                if((lecturaActual < 0  || estadoMedidor == 1) &&
-                        (consumoMes6 > 0 &&
-                         consumoMes5 > 0 &&
-                         consumoMes4 > 0 &&
-                         consumoMes3 > 0 &&
-                         consumoMes2 > 0 &&
-                         consumoMes1 > 0)){
-
-                    lectura = promedio;
-                    System.out.println("LA LECTURA ES promedio "+ lectura);
-                }else if(lecturaActual > 0 && estadoMedidor == 2) {
-                    lectura = lecturaActual - lecturaAnterior;
-                    System.out.println("LA LECTURA ES lecturaActual - lecturaAnterior "+ lectura);
-                }else {
-                    lectura = consumoBasico;
-                    System.out.println("LA LECTURA ES consumoBasico "+ lectura);
-                }
-
-                if(casaVacia == 1){
-                    acueductoConsumo = 0;
-                    System.out.println("VALOR acueductoConsumo, casaVacia == 2 "+ acueductoConsumo);
-                }else {
-                    acueductoConsumo = lectura * 988;
-                    System.out.println("VALOR acueductoConsumo casaVacia == 1 "+ acueductoConsumo);
-                }
-
-                int acueductoSubsidio = (int) ((3854*0.4)+(acueductoConsumo*0.4)); //DATO A GUARDAR EN EL CAMPO acueductoSubsidio
-                System.out.println("VALOR acueductoSubsidio  "+ acueductoSubsidio);
-
-                int alcantarilladoConsumo = lectura * 281; //DATO A GUARDAR EN EL CAMPO alcantarilladoConsumo
-                System.out.println("VALOR alcantarilladoConsumo  "+ alcantarilladoConsumo);
-
-                int alcantarilladoSudsidio = (int) ((2222*0.4)+(alcantarilladoConsumo*0.4)); //DATO A GUARDAR EN EL CAMPO alcantarilladoSudsidio
-                System.out.println("VALOR alcantarilladoSudsidio  "+ alcantarilladoSudsidio);
-
-                admin.guardarLectura(txtlecturaActual,
-                        String.valueOf(lectura),
-                        String.valueOf(acueductoConsumo),
-                        String.valueOf(acueductoSubsidio),
-                        String.valueOf(alcantarilladoConsumo),
-                        String.valueOf(alcantarilladoSudsidio),
-                        ruta);
-
-                Toast.makeText(getActivity(), "LA LECTURA ES " + lectura, Toast.LENGTH_SHORT).show();
+                FacturaController factura = new FacturaController();
+                createPDF(ruta);
             }
         });
-
 
         return root;
     }
@@ -276,5 +356,102 @@ public class RegistrarLecturaFragment extends Fragment {
                 }*/
             }
         }
+    }
+
+    private void createPDF(String ruta){
+
+        admin = new MainController(getActivity(), "Servicios_publicos", null, 1);
+        List<CompaniaEntity> obj = admin.findAllCompania();
+        List<LecturaEntity> lec = admin.findAllByCodRuta(ruta);
+
+
+        int pagewidth = 390;
+
+        PdfDocument pdfdocument = new PdfDocument();
+        Paint paint = new Paint();
+        Paint paint_table = new Paint();
+        Paint paint_color = new Paint();
+        Paint paint_titulo = new Paint();
+        Paint paint_texto = new Paint();
+
+        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(390,2010,1).create();
+        PdfDocument.Page page = pdfdocument.startPage(pageInfo);
+
+        Canvas canvas = page.getCanvas();
+
+        canvas.drawBitmap(scaledbmp,20,20, paint); //IMAGEN
+
+        paint.setColor(Color.rgb(53,168,243));
+        paint.setTextSize(11);
+        paint.setTextAlign(Paint.Align.RIGHT);
+
+        paint_titulo.setColor(Color.rgb(253,253,253));
+        paint_titulo.setTextSize(11);
+        paint_titulo.setTextAlign(Paint.Align.CENTER);
+
+        paint_texto.setTextSize(11);
+        paint_texto.setTextAlign(Paint.Align.LEFT);
+
+        paint_table.setColor(Color.rgb(53,168,243));
+        paint_table.setStyle(Paint.Style.STROKE);
+        paint_table.setStrokeWidth(1);
+        canvas.drawRect(250,75,pagewidth-20,95, paint_table); //RECTÁNGULO # FACTURA
+
+        paint_color.setColor(Color.rgb(53,168,243));
+        paint_color.setStrokeWidth(1);
+        canvas.drawRect(20,100,pagewidth-20,115, paint_color); //RECTÁNGULO TÍTULOS
+
+        paint_table.setColor(Color.rgb(53,168,243));
+        paint_table.setStyle(Paint.Style.STROKE);
+        paint_table.setStrokeWidth(1);
+        canvas.drawRect(20,100,pagewidth-20,160, paint_table); //RECTÁNGULO DATOS SUSCRIPTOR
+
+        canvas.drawText("EMPRESA DE SERVICIOS PÚBLICOS DE PAZ DE RÍO",350,30, paint); //TEXTO
+        canvas.drawText("NUIR. " + obj.get(0).getNuir(),350,45, paint);
+        canvas.drawText("NIT. " + obj.get(0).getNit(),350,60, paint);
+        canvas.drawText("FACTURA N° " ,248,90, paint);
+        canvas.drawText(lec.get(0).getNumero_factura() ,270,90, paint_texto);
+        canvas.drawText("DATOS DEL SUSCRIPTOR ",195,112, paint_titulo);
+        canvas.drawText("Código de Ruta:  " + lec.get(0).getCodigo_ruta(),25,128, paint_texto);
+        canvas.drawText("Nombre:  " + lec.get(0).getUsuario(),25,140, paint_texto);
+        canvas.drawText("Dirección:  " + lec.get(0).getDireccion(),25,152, paint_texto);
+
+        paint_color.setColor(Color.rgb(53,168,243));
+        paint_color.setStrokeWidth(1);
+        canvas.drawRect(20,162,pagewidth-20,177, paint_color); //RECTÁNGULO TÍTULOS
+
+        paint_table.setColor(Color.rgb(53,168,243));
+        paint_table.setStyle(Paint.Style.STROKE);
+        paint_table.setStrokeWidth(1);
+        canvas.drawRect(20,162,pagewidth-20,400, paint_table); //RECTÁNGULO INFORMACIÓN TÉCNICA
+
+        canvas.drawText("INFORMACIÓN TÉCNICA ",195,174, paint_titulo);
+        canvas.drawText("Periodo Facturación:  " + lec.get(0).getPeriodo(),25,188, paint_texto);
+        canvas.drawText("Estrato:  " + lec.get(0).getEstrato(),25,200, paint_texto);
+        canvas.drawText("Uso:  " + lec.get(0).getUso(),25,212, paint_texto);
+        canvas.drawText("Fecha de Entrega:  " + lec.get(0).getFecha_lectura(),25,224, paint_texto);
+        canvas.drawText("Nro Medidor:  " + lec.get(0).getNumero_medidor(),25,238, paint_texto);
+
+
+
+        pdfdocument.finishPage(page);
+
+        File file = new File(Environment.getExternalStorageDirectory() + "/Sigiep/Factura.pdf");
+
+        if (file.exists()){
+            file.delete();
+            //Toast.makeText(getActivity(), "SE ELIMINÓ EL ARCHIVO", Toast.LENGTH_SHORT).show();
+            System.out.println("SE ELIMINÓ EL ARCHIVO");
+        }
+
+        try {
+            pdfdocument.writeTo(new FileOutputStream(file));
+            //Toast.makeText(getActivity(), "SE GENERÓ LA FACTURA", Toast.LENGTH_SHORT).show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        pdfdocument.close();
+
     }
 }

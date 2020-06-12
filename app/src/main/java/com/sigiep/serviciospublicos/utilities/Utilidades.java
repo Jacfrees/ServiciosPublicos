@@ -3,7 +3,7 @@ package com.sigiep.serviciospublicos.utilities;
 public class Utilidades {
 
     public static final String table_usuario = "create table usuario(id_usuario integer PRIMARY KEY AUTOINCREMENT, nombre text, documento text, usuario text, contrasena text)";
-    public static final String table_compania = "create table compania(id_compania integer PRIMARY KEY AUTOINCREMENT, nombre text DEFAULT NULL, nit text DEFAULT NULL, correo text DEFAULT NULL, direccion text DEFAULT NULL, telefono text DEFAULT NULL, slogan text DEFAULT NULL, ruta_logo text DEFAULT NULL, ciudad text DEFAULT NULL, codigo_ean text DEFAULT NULL)";
+    public static final String table_compania = "create table compania(id_compania integer PRIMARY KEY AUTOINCREMENT, nombre text DEFAULT NULL, nit text DEFAULT NULL, correo text DEFAULT NULL, direccion text DEFAULT NULL, telefono text DEFAULT NULL, slogan text DEFAULT NULL, ruta_logo text DEFAULT NULL, ciudad text DEFAULT NULL, codigo_ean text DEFAULT NULL, nuir text DEFAULT NULL)";
     public static final String table_lectura = "create table lectura(" +
             "identificador text DEFAULT NULL, " +
             "fecha text DEFAULT NULL, " +
@@ -64,8 +64,17 @@ public class Utilidades {
             "aseo_concepto1 text DEFAULT NULL, " +
             "aseo_concepto2 text DEFAULT NULL, " +
             "aseo_concepto3 text DEFAULT NULL, " +
+
+            "matricula text DEFAULT NULL, " +
+            "medidor text DEFAULT NULL, " +
+            "llave_o_tapas text DEFAULT NULL, " +
+            "financiacion text DEFAULT NULL, " +
+            "reconexion text DEFAULT NULL, " +
             "fecha_lectura text DEFAULT NULL, " +
-            "documento_usuario text DEFAULT NULL) ";
+            "aforador text DEFAULT NULL, " +
+            "servicio_acueducto text DEFAULT NULL, " +
+            "servicio_alcantarillado text DEFAULT NULL, " +
+            "servicio_aseo text DEFAULT NULL) ";
 
     //"CHARACTER SET utf8mb4 COLLATE utf8mb4_bin";
 }

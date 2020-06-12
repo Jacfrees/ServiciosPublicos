@@ -57,10 +57,19 @@ public class LecturaEntity {
     String aseo_concepto1;
     String aseo_concepto2;
     String aseo_concepto3;
-    String fecha_lectura;
-    String documento_usuario;
 
-    public LecturaEntity(String identificador, String fecha, String fecha_vencimiento, String periodo, String numero_factura, String sector, String codigo_ruta, String codigo_interno, String usuario, String direccion, String estrato, String uso, String numero_medidor, String consumo_mes_6, String consumo_mes_5, String consumo_mes_4, String consumo_mes_3, String consumo_mes_2, String consumo_mes_1, String promedio, String consumo_basico, String mtrs_max_subsidio, String deuda_anterior, String atraso, String estado_medidor, String casa_vacia, String lectura_anterior, String lectura_actual, String lectura, String valor_mtr3_acueducto, String cargo_fijo_acueducto, String consumo_acueducto, String contribucion_acueducto, String intereses_mora_de_acueducto, String subsidio_acueducto, String acueducto_concepto1, String acueducto_concepto2, String acueducto_concepto3, String valor_mtr3_alcantarillado, String cargo_fijo_alcantarillado, String consumo_alcantarillado, String contribucion_alcantarillado, String intereses_mora_de_alcantarillado, String subsidio_alcantarillado, String alcantarillado_concepto1, String alcantarillado_concepto2, String alcantarillado_concepto3, String valor_mtr3_aseo, String cargo_fijo_aseo, String subsidio_aseo, String intereses_de_mora_aseo, String contribucion_aseo, String aseo_concepto1, String aseo_concepto2, String aseo_concepto3, String fecha_lectura, String documento_usuario) {
+    String matricula;
+    String medidor;
+    String llave_o_tapas;
+    String financiacion;
+    String reconexion;
+    String fecha_lectura;
+    String aforador;
+    String servicio_acueducto;
+    String servicio_alcantarillado;
+    String servicio_aseo;
+
+    public LecturaEntity(String identificador, String fecha, String fecha_vencimiento, String periodo, String numero_factura, String sector, String codigo_ruta, String codigo_interno, String usuario, String direccion, String estrato, String uso, String numero_medidor, String consumo_mes_6, String consumo_mes_5, String consumo_mes_4, String consumo_mes_3, String consumo_mes_2, String consumo_mes_1, String promedio, String consumo_basico, String mtrs_max_subsidio, String deuda_anterior, String atraso, String estado_medidor, String casa_vacia, String lectura_anterior, String lectura_actual, String lectura, String valor_mtr3_acueducto, String cargo_fijo_acueducto, String consumo_acueducto, String contribucion_acueducto, String intereses_mora_de_acueducto, String subsidio_acueducto, String acueducto_concepto1, String acueducto_concepto2, String acueducto_concepto3, String valor_mtr3_alcantarillado, String cargo_fijo_alcantarillado, String consumo_alcantarillado, String contribucion_alcantarillado, String intereses_mora_de_alcantarillado, String subsidio_alcantarillado, String alcantarillado_concepto1, String alcantarillado_concepto2, String alcantarillado_concepto3, String valor_mtr3_aseo, String cargo_fijo_aseo, String subsidio_aseo, String intereses_de_mora_aseo, String contribucion_aseo, String aseo_concepto1, String aseo_concepto2, String aseo_concepto3, String matricula, String medidor, String llave_o_tapas, String financiacion, String reconexion, String fecha_lectura, String aforador, String servicio_acueducto, String servicio_alcantarillado, String servicio_aseo) {
         this.identificador = identificador;
         this.fecha = fecha;
         this.fecha_vencimiento = fecha_vencimiento;
@@ -116,11 +125,20 @@ public class LecturaEntity {
         this.aseo_concepto1 = aseo_concepto1;
         this.aseo_concepto2 = aseo_concepto2;
         this.aseo_concepto3 = aseo_concepto3;
+        this.matricula = matricula;
+        this.medidor = medidor;
+        this.llave_o_tapas = llave_o_tapas;
+        this.financiacion = financiacion;
+        this.reconexion = reconexion;
         this.fecha_lectura = fecha_lectura;
-        this.documento_usuario = documento_usuario;
+        this.aforador = aforador;
+        this.servicio_acueducto = servicio_acueducto;
+        this.servicio_alcantarillado = servicio_alcantarillado;
+        this.servicio_aseo = servicio_aseo;
     }
 
     public LecturaEntity() {
+
     }
 
     public String getIdentificador() {
@@ -563,6 +581,46 @@ public class LecturaEntity {
         this.aseo_concepto3 = aseo_concepto3;
     }
 
+    public String getMatricula() {
+        return matricula;
+    }
+
+    public void setMatricula(String matricula) {
+        this.matricula = matricula;
+    }
+
+    public String getMedidor() {
+        return medidor;
+    }
+
+    public void setMedidor(String medidor) {
+        this.medidor = medidor;
+    }
+
+    public String getLlave_o_tapas() {
+        return llave_o_tapas;
+    }
+
+    public void setLlave_o_tapas(String llave_o_tapas) {
+        this.llave_o_tapas = llave_o_tapas;
+    }
+
+    public String getFinanciacion() {
+        return financiacion;
+    }
+
+    public void setFinanciacion(String financiacion) {
+        this.financiacion = financiacion;
+    }
+
+    public String getReconexion() {
+        return reconexion;
+    }
+
+    public void setReconexion(String reconexion) {
+        this.reconexion = reconexion;
+    }
+
     public String getFecha_lectura() {
         return fecha_lectura;
     }
@@ -571,11 +629,35 @@ public class LecturaEntity {
         this.fecha_lectura = fecha_lectura;
     }
 
-    public String getDocumento_usuario() {
-        return documento_usuario;
+    public String getAforador() {
+        return aforador;
     }
 
-    public void setDocumento_usuario(String documento_usuario) {
-        this.documento_usuario = documento_usuario;
+    public void setAforador(String aforador) {
+        this.aforador = aforador;
+    }
+
+    public String getServicio_acueducto() {
+        return servicio_acueducto;
+    }
+
+    public void setServicio_acueducto(String servicio_acueducto) {
+        this.servicio_acueducto = servicio_acueducto;
+    }
+
+    public String getServicio_alcantarillado() {
+        return servicio_alcantarillado;
+    }
+
+    public void setServicio_alcantarillado(String servicio_alcantarillado) {
+        this.servicio_alcantarillado = servicio_alcantarillado;
+    }
+
+    public String getServicio_aseo() {
+        return servicio_aseo;
+    }
+
+    public void setServicio_aseo(String servicio_aseo) {
+        this.servicio_aseo = servicio_aseo;
     }
 }
