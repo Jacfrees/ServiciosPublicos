@@ -403,14 +403,13 @@ public class RegistrarLecturaFragment extends Fragment {
         paint_num.setTextAlign(Paint.Align.RIGHT);
         //paint_texto.setTypeface(Typeface.create(Typeface.MONOSPACE, Typeface.NORMAL));
 
-        paint_texto_peque.setColor(Color.rgb(53,168,243));
         paint_texto_peque.setTextSize(8);
         paint_texto_peque.setTextAlign(Paint.Align.LEFT);
 
         paint_total.setColor(Color.rgb(53,168,243));
         paint_total.setTextSize(17);
         paint_total.setTextAlign(Paint.Align.LEFT);
-        
+
         paint_final.setTextSize(17);
         paint_final.setTextAlign(Paint.Align.RIGHT);
         paint_final.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
@@ -450,12 +449,12 @@ public class RegistrarLecturaFragment extends Fragment {
         paint_table.setStrokeWidth(1);
         canvas.drawRect(20,162,pagewidth-20,290, paint_table); //RECTÁNGULO INFORMACIÓN TÉCNICA
 
-        canvas.drawLine(107,250,107,290, paint_table);
-        canvas.drawLine(194,250,194,290, paint_table);
-        canvas.drawLine(281,250,281,290, paint_table);
+        canvas.drawLine(107,253,107,290, paint_table);
+        canvas.drawLine(194,253,194,290, paint_table);
+        canvas.drawLine(281,253,281,290, paint_table);
 
-        canvas.drawLine(20,250,pagewidth-20,250, paint_table);
-        canvas.drawLine(20,270,pagewidth-20,270, paint_table); //EJE Y -- HORIZONTAL
+        canvas.drawLine(20,253,pagewidth-20,253, paint_table);
+        canvas.drawLine(20,272,pagewidth-20,272, paint_table); //EJE Y -- HORIZONTAL
 
         canvas.drawText("INFORMACIÓN TÉCNICA ",195,174, paint_titulo);
         canvas.drawText("Periodo Facturación:  " + lec.get(0).getPeriodo(),25,188, paint_texto);
@@ -464,11 +463,61 @@ public class RegistrarLecturaFragment extends Fragment {
         canvas.drawText("Fecha de Entrega:  " + lec.get(0).getFecha_lectura(),25,224, paint_texto);
         canvas.drawText("Nro. Medidor:  " + lec.get(0).getNumero_medidor(),25,237, paint_texto);
 
-        canvas.drawText("Lectura Anterior",106,265, paint);
-        canvas.drawText("Lectura Actual",190,265, paint);
-        canvas.drawText("Consumo M³",271,265, paint);
-        canvas.drawText("Promedio",350,265, paint);
+        canvas.drawText("Mes6   "+ lec.get(0).getConsumo_mes_6(),200,200, paint_texto_peque);
+        canvas.drawText("Mes5   "+ lec.get(0).getConsumo_mes_5(),200,210, paint_texto_peque);
+        canvas.drawText("Mes4   "+ lec.get(0).getConsumo_mes_4(),200,220, paint_texto_peque);
+        canvas.drawText("Mes3   "+ lec.get(0).getConsumo_mes_3(),200,230, paint_texto_peque);
+        canvas.drawText("Mes2   "+ lec.get(0).getConsumo_mes_2(),200,240, paint_texto_peque);
+        canvas.drawText("Mes1   "+ lec.get(0).getConsumo_mes_1(),200,250, paint_texto_peque);
 
+        int barras = 251;
+        if(!lec.get(0).getConsumo_mes_6().equals("")){
+
+            int dt = barras-Integer.parseInt(lec.get(0).getConsumo_mes_6()) /2;
+            paint_color.setColor(Color.rgb(53,168,243));
+            paint_color.setStrokeWidth(1);
+            canvas.drawRect(275,dt,285,251, paint_color);
+        }
+        if(!lec.get(0).getConsumo_mes_5().equals("")){
+
+            int dt = barras-Integer.parseInt(lec.get(0).getConsumo_mes_5()) /2;
+            paint_color.setColor(Color.rgb(53,168,243));
+            paint_color.setStrokeWidth(1);
+            canvas.drawRect(290,dt,300,251, paint_color);
+        }
+        if(!lec.get(0).getConsumo_mes_4().equals("")){
+
+            int dt = barras-Integer.parseInt(lec.get(0).getConsumo_mes_4()) /2;
+            paint_color.setColor(Color.rgb(53,168,243));
+            paint_color.setStrokeWidth(1);
+            canvas.drawRect(305,dt,315,251, paint_color);
+        }
+        if(!lec.get(0).getConsumo_mes_3().equals("")){
+
+            int dt = barras-Integer.parseInt(lec.get(0).getConsumo_mes_3()) /2;
+            paint_color.setColor(Color.rgb(53,168,243));
+            paint_color.setStrokeWidth(1);
+            canvas.drawRect(320,dt,330,251, paint_color);
+        }
+        if(!lec.get(0).getConsumo_mes_2().equals("")){
+
+            int dt = barras-Integer.parseInt(lec.get(0).getConsumo_mes_2()) /2;
+            paint_color.setColor(Color.rgb(53,168,243));
+            paint_color.setStrokeWidth(1);
+            canvas.drawRect(335,dt,345,251, paint_color);
+        }
+        if(!lec.get(0).getConsumo_mes_1().equals("")){
+
+            int dt = barras-Integer.parseInt(lec.get(0).getConsumo_mes_1()) /2;
+            paint_color.setColor(Color.rgb(53,168,243));
+            paint_color.setStrokeWidth(1);
+            canvas.drawRect(350,dt,360,251, paint_color);
+        }
+
+        canvas.drawText("Lectura Anterior",106,267, paint);
+        canvas.drawText("Lectura Actual",190,267, paint);
+        canvas.drawText("Consumo M³",271,267, paint);
+        canvas.drawText("Promedio",350,267, paint);
         canvas.drawText(lec.get(0).getLectura_anterior(),60,285, paint_texto);
         canvas.drawText(lec.get(0).getLectura_actual(),145,285, paint_texto);
         canvas.drawText(lec.get(0).getConsumo_basico(),235,285, paint_texto);
@@ -657,9 +706,9 @@ public class RegistrarLecturaFragment extends Fragment {
         canvas.drawText("NIT. " + obj.get(0).getNit(),pagewidth-120,842, paint);
         canvas.drawText("FACTURA N° " ,248,872, paint);
         canvas.drawText(lec.get(0).getNumero_factura() ,270,872, paint_texto);
-        canvas.drawText("Código Ruta: ",120,890, paint);
+        canvas.drawText("Código Ruta ",120,890, paint);
         canvas.drawText(lec.get(0).getCodigo_ruta(),50,905, paint_texto);
-        canvas.drawText("Periodo Facturación: " ,300,890, paint);
+        canvas.drawText("Periodo Facturación " ,300,890, paint);
         canvas.drawText(lec.get(0).getPeriodo(),155,905, paint_texto);
         canvas.drawText("TOTAL ACUEDUCTO/ALCANTARILLADO/ASEO",260,925, paint);
 
@@ -674,7 +723,7 @@ public class RegistrarLecturaFragment extends Fragment {
         canvas.drawRect(30,940,210,960, paint_color); //RECTÁNGULO TÍTULOS
 
         canvas.drawText("VALOR A PAGAR",120,955, paint_titulo);
-        canvas.drawText(admin.formatoSalida(String.valueOf(TOTAL)),345,955, paint_final);
+        canvas.drawText(admin.formatoSalida(String.valueOf(TOTAL)),345,957, paint_final);
 
 
 
