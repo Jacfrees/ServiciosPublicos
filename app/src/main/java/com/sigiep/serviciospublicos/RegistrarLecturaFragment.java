@@ -377,6 +377,7 @@ public class RegistrarLecturaFragment extends Fragment {
         Paint paint_texto_peque = new Paint();
         Paint paint_total = new Paint();
         Paint paint_num = new Paint();
+        Paint paint_final = new Paint();
 
         PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(390,2010,1).create();
         PdfDocument.Page page = pdfdocument.startPage(pageInfo);
@@ -409,6 +410,10 @@ public class RegistrarLecturaFragment extends Fragment {
         paint_total.setColor(Color.rgb(53,168,243));
         paint_total.setTextSize(17);
         paint_total.setTextAlign(Paint.Align.LEFT);
+        
+        paint_final.setTextSize(17);
+        paint_final.setTextAlign(Paint.Align.RIGHT);
+        paint_final.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
 
         //##########################################################################################
 
@@ -619,8 +624,6 @@ public class RegistrarLecturaFragment extends Fragment {
                         admin.formato(lec.get(0).getDeuda_anterior());
 
         canvas.drawText(admin.formatoSalida(String.valueOf(TOTAL)),367,698, paint_num);
-        //CARGAR TOTALES
-
 
 
         paint_table.setColor(Color.rgb(53,168,243));
@@ -641,8 +644,37 @@ public class RegistrarLecturaFragment extends Fragment {
         canvas.drawText("PAGAR ANTES DE:",158,725, paint);
         canvas.drawText("TOTAL FACTURA:",65,760, paint_total);
         canvas.drawText(lec.get(0).getFecha_vencimiento(),200,725, paint_texto);
-        canvas.drawText(admin.formatoSalida(String.valueOf(TOTAL)),760,100, paint_num);
+        canvas.drawText(admin.formatoSalida(String.valueOf(TOTAL)),340,760, paint_final);
 
+        paint_table.setColor(Color.rgb(53,168,243));
+        paint_table.setStyle(Paint.Style.STROKE);
+        paint_table.setStrokeWidth(1);
+        canvas.drawRect(250,857,pagewidth-20,877, paint_table); //RECTÁNGULO # FACTURA
+
+        canvas.drawBitmap(scaledbmp,20,802, paint); //IMAGEN
+        canvas.drawText("EMPRESA DE SERVICIOS PÚBLICOS DE PAZ DE RÍO",pagewidth-20,812, paint); //TEXTO
+        canvas.drawText("NUIR. " + obj.get(0).getNuir()+ " VIGILADO POR LA SSPD",pagewidth-50,827, paint);
+        canvas.drawText("NIT. " + obj.get(0).getNit(),pagewidth-120,842, paint);
+        canvas.drawText("FACTURA N° " ,248,872, paint);
+        canvas.drawText(lec.get(0).getNumero_factura() ,270,872, paint_texto);
+        canvas.drawText("Código Ruta: ",120,890, paint);
+        canvas.drawText(lec.get(0).getCodigo_ruta(),50,905, paint_texto);
+        canvas.drawText("Periodo Facturación: " ,300,890, paint);
+        canvas.drawText(lec.get(0).getPeriodo(),155,905, paint_texto);
+        canvas.drawText("TOTAL ACUEDUCTO/ALCANTARILLADO/ASEO",260,925, paint);
+
+        double TOTAL_SERVICIOS =  admin.formato(String.valueOf(totalA)) +
+                admin.formato(String.valueOf(totalB)) +
+                admin.formato(String.valueOf(totalCptoAseo));
+
+        canvas.drawText(admin.formatoSalida(String.valueOf(TOTAL_SERVICIOS)),340,925, paint_num);
+
+        paint_color.setColor(Color.rgb(53,168,243));
+        paint_color.setStrokeWidth(1);
+        canvas.drawRect(30,940,210,960, paint_color); //RECTÁNGULO TÍTULOS
+
+        canvas.drawText("VALOR A PAGAR",120,955, paint_titulo);
+        canvas.drawText(admin.formatoSalida(String.valueOf(TOTAL)),345,955, paint_final);
 
 
 
