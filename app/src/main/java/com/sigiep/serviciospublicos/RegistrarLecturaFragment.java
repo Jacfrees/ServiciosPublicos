@@ -376,6 +376,7 @@ public class RegistrarLecturaFragment extends Fragment {
         Paint paint_texto = new Paint();
         Paint paint_texto_peque = new Paint();
         Paint paint_total = new Paint();
+        Paint paint_num = new Paint();
 
         PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(390,2010,1).create();
         PdfDocument.Page page = pdfdocument.startPage(pageInfo);
@@ -394,6 +395,11 @@ public class RegistrarLecturaFragment extends Fragment {
 
         paint_texto.setTextSize(11);
         paint_texto.setTextAlign(Paint.Align.LEFT);
+        //paint_texto.setTypeface(Typeface.create(Typeface.MONOSPACE, Typeface.NORMAL));
+
+
+        paint_num.setTextSize(11);
+        paint_num.setTextAlign(Paint.Align.RIGHT);
         //paint_texto.setTypeface(Typeface.create(Typeface.MONOSPACE, Typeface.NORMAL));
 
         paint_texto_peque.setColor(Color.rgb(53,168,243));
@@ -479,28 +485,64 @@ public class RegistrarLecturaFragment extends Fragment {
         paint_color.setStrokeWidth(1);
         canvas.drawRect(20,352,pagewidth-20,367, paint_color); //RECTÁNGULO TÍTULOS
 
+        paint_color.setColor(Color.rgb(53,168,243));
+        paint_color.setStrokeWidth(1);
+        canvas.drawRect(20,369,194,384, paint_color); //RECTÁNGULO A
+
+        paint_color.setColor(Color.rgb(53,168,243));
+        paint_color.setStrokeWidth(1);
+        canvas.drawRect(196,369,pagewidth-20,384, paint_color); //RECTÁNGULO B
+
+        paint_color.setColor(Color.rgb(53,168,243));
+        paint_color.setStrokeWidth(1);
+        canvas.drawRect(20,485,194,500, paint_color); //RECTÁNGULO A TOTAL
+
+        paint_color.setColor(Color.rgb(53,168,243));
+        paint_color.setStrokeWidth(1);
+        canvas.drawRect(196,485,pagewidth-20,500, paint_color); //RECTÁNGULO B TOTAL
+
         paint_table.setColor(Color.rgb(53,168,243));
         paint_table.setStyle(Paint.Style.STROKE);
         paint_table.setStrokeWidth(1);
-        canvas.drawRect(20,352,pagewidth-20,520, paint_table); //RECTÁNGULO DETALLE DE FACRURA
+        canvas.drawRect(20,352,pagewidth-20,520, paint_table); //RECTÁNGULO DETALLE DE FACTURA
 
-        canvas.drawLine(107,367,107,520, paint_table);
-        canvas.drawLine(137,367,137,520, paint_table);
-        canvas.drawLine(186,382,186,520, paint_table);
-        canvas.drawLine(250,367,250,520, paint_table);
-        canvas.drawLine(305,367,305,520, paint_table);
-
-        canvas.drawLine(20,397,pagewidth-20,397, paint_table); //EJE Y -- HORIZONTAL
-        canvas.drawLine(137,382,250,382, paint_table); //EJE Y -- HORIZONTAL
+        canvas.drawLine(130,369,130,399, paint_table);
+        canvas.drawLine(195,369,195,520, paint_table);
+        canvas.drawLine(305,369,305,399, paint_table);
+        canvas.drawLine(20,399,pagewidth-20,399, paint_table); //EJE Y -- HORIZONTAL
 
         canvas.drawText("DETALLE DE FACTURACIÓN DEL PERIODO",195,364, paint_titulo);
-        canvas.drawText("Concepto",90,386, paint);
-        canvas.drawText("M³",129,386, paint);
-        canvas.drawText("Valor Cargo Fijo",155,378, paint_texto_peque);
-        canvas.drawText("Acueducto",138,392, paint_texto_peque);
-        canvas.drawText("Alcantarillado",188,392, paint_texto_peque);
+        canvas.drawText("ACUEDUCTO",105,381, paint_titulo);
+        canvas.drawText("ALCANTARILLADO",285,381, paint_titulo);
+        canvas.drawText("Concepto",100,396, paint);
+        canvas.drawText("Valor",175,396, paint);
+        canvas.drawText("Concepto",275,396, paint);
+        canvas.drawText("Valor",350,396, paint);
+        canvas.drawText("TOTAL ACUEDUCTO",105,497, paint_titulo);
+        canvas.drawText("TOTAL ALCANTARILLADO",285,497, paint_titulo);
+
+        //canvas.drawText("Acueducto",138,392, paint_texto_peque);
+        //canvas.drawText("Alcantarillado",188,392, paint_texto_peque);
         canvas.drawText("Cargo Fijo",25,415, paint_texto);
-        canvas.drawText(lec.get(0).getConsumo_basico(),108,415, paint_texto);
+        canvas.drawText("Valor M³",25,427, paint_texto);
+        canvas.drawText(admin.formatoSalida(lec.get(0).getCargo_fijo_acueducto()),193,415, paint_num);
+        canvas.drawText(admin.formatoSalida(lec.get(0).getValor_mtr3_acueducto()),193,427, paint_num);
+
+
+        double cargoA = admin.formato(lec.get(0).getCargo_fijo_acueducto());
+        double m3A = admin.formato(lec.get(0).getValor_mtr3_acueducto());
+        double totalA = cargoA + m3A;
+        canvas.drawText(admin.formatoSalida(String.valueOf(totalA))+".00",90,514, paint_texto); //TOTAL ACUEDUCTO
+
+        canvas.drawText("Cargo Fijo",200,415, paint_texto);
+        canvas.drawText("Valor M³",200,427, paint_texto);
+        canvas.drawText(admin.formatoSalida(lec.get(0).getCargo_fijo_alcantarillado()),367,415, paint_num);
+        canvas.drawText(admin.formatoSalida(lec.get(0).getValor_mtr3_alcantarillado()),367,427, paint_num);
+
+        double cargoB = admin.formato(lec.get(0).getCargo_fijo_alcantarillado());
+        double m3B = admin.formato(lec.get(0).getValor_mtr3_alcantarillado());
+        double totalB = cargoB + m3B;
+        canvas.drawText(admin.formatoSalida(String.valueOf(totalB))+".00",270,514, paint_texto); //TOTAL ALCANTARILLADO
 
 
         paint_color.setColor(Color.rgb(53,168,243));
@@ -537,10 +579,17 @@ public class RegistrarLecturaFragment extends Fragment {
         canvas.drawText("Subsidio",25,644, paint_texto);
         canvas.drawText("Interes Mora",25,656, paint_texto);
         canvas.drawText("Subtotal:",25,690, paint_texto);
-        canvas.drawText(lec.get(0).getCargo_fijo_aseo(),130,632, paint_texto);
-        canvas.drawText(lec.get(0).getSubsidio_aseo(),130,644, paint_texto);
-        canvas.drawText(lec.get(0).getIntereses_de_mora_aseo(),130,656, paint_texto);
-        //CARGAR Subtotal
+        canvas.drawText(admin.formatoSalida(lec.get(0).getCargo_fijo_aseo()),193,632, paint_num);
+        canvas.drawText("-"+admin.formatoSalida(lec.get(0).getSubsidio_aseo()),193,644, paint_num);
+        canvas.drawText(admin.formatoSalida(lec.get(0).getIntereses_de_mora_aseo()),193,656, paint_num);
+
+        double cpto1 = admin.formato(lec.get(0).getCargo_fijo_aseo()); //RECIBE VALOR CON FORMATO
+        double cpto2 = admin.formato(lec.get(0).getSubsidio_aseo());
+        double cpto3 = admin.formato(lec.get(0).getIntereses_de_mora_aseo());
+
+        double totalCptoAseo = cpto1 - cpto2 + cpto3;
+        canvas.drawText(admin.formatoSalida(String.valueOf(totalCptoAseo)),193,690, paint_num);
+
 
         paint_color.setColor(Color.rgb(53,168,243));
         paint_color.setStrokeWidth(1);
@@ -549,52 +598,50 @@ public class RegistrarLecturaFragment extends Fragment {
         paint_table.setColor(Color.rgb(53,168,243));
         paint_table.setStyle(Paint.Style.STROKE);
         paint_table.setStrokeWidth(1);
-        canvas.drawRect(196,606,pagewidth-20,700, paint_table); //RECTÁNGULO OTROS COBROS
+        canvas.drawRect(196,606,pagewidth-20,700, paint_table); //RECTÁNGULO RESUMEN FACTURA
 
-        canvas.drawText("OTROS COBROS",280,618, paint_titulo);
+        canvas.drawText("RESUMEN FACTURA",280,618, paint_titulo);
+        canvas.drawText("Acueducto",200,631, paint_texto);
+        canvas.drawText("Alcantarillado",200,643, paint_texto);
+        canvas.drawText("Aseo",200,655, paint_texto);
+        canvas.drawText("Ajuste",200,667, paint_texto);
+        canvas.drawText("Deuda Anterior",200,679, paint_texto);
+        canvas.drawText("TOTAL",200,698, paint_texto);
 
+        canvas.drawText(admin.formatoSalida(String.valueOf(totalA))+".00",367,631, paint_num); //TOTAL ACUEDUCTO
+        canvas.drawText(admin.formatoSalida(String.valueOf(totalB))+".00",367,643, paint_num); //TOTAL ALCANTARILLADO
+        canvas.drawText(admin.formatoSalida(String.valueOf(totalCptoAseo)),367,655, paint_num); //TOTAL ASEO
+        canvas.drawText(admin.formatoSalida(lec.get(0).getDeuda_anterior()),367,679, paint_num); //TOTAL DEUDA ANTERIOR
 
-        paint_color.setColor(Color.rgb(53,168,243));
-        paint_color.setStrokeWidth(1);
-        canvas.drawRect(20,702,174,717, paint_color); //RECTÁNGULO TÍTULOS
+        double TOTAL =  admin.formato(String.valueOf(totalA)) +
+                        admin.formato(String.valueOf(totalB)) +
+                        admin.formato(String.valueOf(totalCptoAseo)) +
+                        admin.formato(lec.get(0).getDeuda_anterior());
 
-        paint_table.setColor(Color.rgb(53,168,243));
-        paint_table.setStyle(Paint.Style.STROKE);
-        paint_table.setStrokeWidth(1);
-        canvas.drawRect(20,702,174,805, paint_table); //RECTÁNGULO RESUMEN FACTURA
-
-        canvas.drawText("RESUMEN FACTURA",95,713, paint_titulo);
-        canvas.drawText("Acueducto",25,728, paint_texto);
-        canvas.drawText("Alcantarillado",25,740, paint_texto);
-        canvas.drawText("Aseo",25,752, paint_texto);
-        canvas.drawText("Ajuste",25,764, paint_texto);
-        canvas.drawText("Deuda Anterior",25,776, paint_texto);
-        canvas.drawText("TOTAL",25,800, paint_texto);
+        canvas.drawText(admin.formatoSalida(String.valueOf(TOTAL)),367,698, paint_num);
         //CARGAR TOTALES
 
 
-        paint_table.setColor(Color.rgb(53,168,243));
-        paint_table.setStyle(Paint.Style.STROKE);
-        paint_table.setStrokeWidth(1);
-        canvas.drawRect(176,702,pagewidth-20,805, paint_table); //RECTÁNGULO TOTAL FACTURA
 
         paint_table.setColor(Color.rgb(53,168,243));
         paint_table.setStyle(Paint.Style.STROKE);
         paint_table.setStrokeWidth(1);
-        canvas.drawRect(178,712,282,730, paint_table);
+        canvas.drawRect(20,702,pagewidth-20,780, paint_table); //RECTÁNGULO TOTAL FACTURA
 
         paint_table.setColor(Color.rgb(53,168,243));
         paint_table.setStyle(Paint.Style.STROKE);
         paint_table.setStrokeWidth(1);
-        canvas.drawRect(178,742,325,764, paint_table);
+        canvas.drawRect(60,712,160,729, paint_table);
 
-        canvas.drawText("PAGAR ANTES DE:",280,725, paint);
-        canvas.drawText("TOTAL FACTURA:",185,760, paint_total);
-        canvas.drawText(lec.get(0).getFecha_vencimiento(),290,725, paint_texto);
+        paint_table.setColor(Color.rgb(53,168,243));
+        paint_table.setStyle(Paint.Style.STROKE);
+        paint_table.setStrokeWidth(1);
+        canvas.drawRect(60,742,200,765, paint_table);
 
-
-
-
+        canvas.drawText("PAGAR ANTES DE:",158,725, paint);
+        canvas.drawText("TOTAL FACTURA:",65,760, paint_total);
+        canvas.drawText(lec.get(0).getFecha_vencimiento(),200,725, paint_texto);
+        canvas.drawText(admin.formatoSalida(String.valueOf(TOTAL)),760,100, paint_num);
 
 
 

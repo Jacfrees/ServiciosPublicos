@@ -11,6 +11,7 @@ import com.sigiep.serviciospublicos.models.CompaniaEntity;
 import com.sigiep.serviciospublicos.models.LecturaEntity;
 import com.sigiep.serviciospublicos.utilities.Utilidades;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -246,6 +247,49 @@ public class MainController extends SQLiteOpenHelper {
         cursor.close();
 
         return comp;
+    }
+
+    public Double formato(String valor){
+        double replace = 0;
+
+        String form = valor .replace(",",".");
+        replace = Double.parseDouble(form);
+
+        return replace;
+    }
+
+    public String formatoSalida(String valor){
+        String formato = "";
+        DecimalFormat decimalFormat = new DecimalFormat("$#,###.##");
+
+        if (valor.contains(",")){
+            formato = decimalFormat.format(this.formato(valor)); //SI valor TRAE COMA
+        }else if (!valor.contains(".")){
+            double rta = Double.parseDouble(valor);
+            formato = decimalFormat.format(rta)+".00"; //SI valor NO TRAE PUNTO
+        }else{
+            double rta = Double.parseDouble(valor);
+            formato = decimalFormat.format(rta); //SI valor VIENE CON FORMATO
+        }
+
+        return formato;
+    }
+
+    public String formatoCalculo(String valor){
+        String formato = "";
+        DecimalFormat decimalFormat = new DecimalFormat("####.##");
+
+        if (valor.contains(",")){
+            formato = decimalFormat.format(this.formato(valor)); //SI valor TRAE COMA
+        }else if (!valor.contains(".")){
+            double rta = Double.parseDouble(valor);
+            formato = decimalFormat.format(rta)+".00"; //SI valor NO TRAE PUNTO
+        }else{
+            double rta = Double.parseDouble(valor);
+            formato = decimalFormat.format(rta); //SI valor VIENE CON FORMATO
+        }
+
+        return formato;
     }
 
 }
