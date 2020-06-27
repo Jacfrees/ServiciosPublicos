@@ -74,7 +74,11 @@ public class Utilidades {
             "aforador text DEFAULT NULL, " +
             "servicio_acueducto text DEFAULT NULL, " +
             "servicio_alcantarillado text DEFAULT NULL, " +
-            "servicio_aseo text DEFAULT NULL) ";
+            "servicio_aseo text DEFAULT NULL, "+
+            "porcentaje_subsidio_acueducto text DEFAULT NULL, " +
+            "porcentaje_subsidio_alcantarillado text DEFAULT NULL)";
+
+
 
     //"CHARACTER SET utf8mb4 COLLATE utf8mb4_bin";
 }

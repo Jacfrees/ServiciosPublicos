@@ -210,7 +210,9 @@ public class MainController extends SQLiteOpenHelper {
                         cursor.getString(61),
                         cursor.getString(62),
                         cursor.getString(63),
-                        cursor.getString(64)
+                        cursor.getString(64),
+                        cursor.getString(65),
+                        cursor.getString(66)
                         ));
             }while (cursor.moveToNext());
 

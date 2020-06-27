@@ -40,15 +40,17 @@ public class MainActivity extends AppCompatActivity {
         boolean a = objuser.numeroRegistos("usuario");
         if (a){
             objuser.agregar("Administrador", "12345", "Admin", "Grupo123456");
-            Toast.makeText(this, "SE CREÓ EL ADMINISTRADOR", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "SE CREÓ EL ADMINISTRADOR", Toast.LENGTH_SHORT).show();
         }else{
             //Toast.makeText(this, "YA EXISTE EL ADMINISTRADOR", Toast.LENGTH_SHORT).show();
         }
         boolean b = objuser.numeroRegistos("compania");
         if (b){
-            objuser.agregar_compania("MUNICIPIO PAZ DE RIO","891855015","alcaldia@pazderio-boyaca.gov.co",
-                    "Carrera 3 No 7-50 Barrio Colonial","7865133", null,null,null,null, "69358420");
-            Toast.makeText(this, "SE CREÓ LA COMPAÑÍA", Toast.LENGTH_SHORT).show();
+            /*objuser.agregar_compania("MUNICIPIO PAZ DE RIO","891855015","alcaldia@pazderio-boyaca.gov.co",
+                    "Carrera 3 No 7-50 Barrio Colonial","7865133", null,null,null,null, "69358420"); */
+            objuser.agregar_compania("ASOCIACION DE USUARIOS ACUEDUCTO DE LA PEDREGOSA","807006339-6","acupedregosa@gmail.com",
+                    "Calle 2 No.2-26 Corregimiento De La Pedregosa","5645672", null,null,null,null, "00000000");
+            //Toast.makeText(this, "SE CREÓ LA COMPAÑÍA", Toast.LENGTH_SHORT).show();
         }else{
             //Toast.makeText(this, "YA EXISTE LA COMPAÑÍA", Toast.LENGTH_SHORT).show();
         }

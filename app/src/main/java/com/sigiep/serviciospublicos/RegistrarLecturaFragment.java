@@ -54,6 +54,7 @@ public class RegistrarLecturaFragment extends Fragment {
     int index = 0;
     ArrayList<LecturaEntity> obj;
     Bitmap bmp, scaledbmp; //PARA AGREGAR IMÁGENES
+    Bitmap bmp2, scaledbmp2; //PARA AGREGAR IMÁGENES
 
     public RegistrarLecturaFragment() {
         // Required empty public constructor
@@ -78,7 +79,10 @@ public class RegistrarLecturaFragment extends Fragment {
         checkDañado = root.findViewById(R.id.checkBox_dañado);
         checkCasaVacia = root.findViewById(R.id.checkBox_casa_vacia);
         bmp = BitmapFactory.decodeResource(getResources(), R.drawable.logo_paz_de_rio);
-        scaledbmp = Bitmap.createScaledBitmap(bmp,55,55,false); //TAMAÑO DEL LOGO
+        scaledbmp = Bitmap.createScaledBitmap(bmp,55,55,false); //TAMAÑO DEL LOGO PAZ DE RÍO
+
+        bmp2 = BitmapFactory.decodeResource(getResources(), R.drawable.logo_pedregosa);
+        scaledbmp2 = Bitmap.createScaledBitmap(bmp2,55,55,false); //TAMAÑO DEL LOGO
 
         Bundle datosRecuperados = getArguments();
         if (datosRecuperados == null) {
@@ -91,7 +95,7 @@ public class RegistrarLecturaFragment extends Fragment {
         textoTitulo.setText(sector);
 
         if (ruta == null){
-            Toast.makeText(getActivity(), "NO HAY NADA", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "NO HAY RUTA", Toast.LENGTH_SHORT).show();
         }else{
             obj = datosruta(sector);
             createVista(obj);
@@ -196,6 +200,8 @@ public class RegistrarLecturaFragment extends Fragment {
 
                     int valorMtr3Alcantarillado = Integer.valueOf(obj.get(0).getValor_mtr3_alcantarillado());
                     int cargoFijoAlcantarillado = Integer.valueOf(obj.get(0).getCargo_fijo_alcantarillado());
+                    double porcentajeSubsidioAcueducto = Double.valueOf(obj.get(0).getPorcentaje_subsidio_acueducto());
+                    double porcentajeSubsidioAlcantarillado = Double.valueOf(obj.get(0).getPorcentaje_subsidio_alcantarillado());
 
                     int servicioAcueducto = Integer.valueOf(obj.get(0).getServicio_acueducto());
                     int servicioAlcantarillado = Integer.valueOf(obj.get(0).getServicio_alcantarillado());
@@ -244,11 +250,11 @@ public class RegistrarLecturaFragment extends Fragment {
 
                     //↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ CÁLCULOS PARA EL CAMPO SUBSIDIO ACUEDUCTO
                     if (servicioAcueducto == 1) {
-                        int val = (int) (cargoFijoAcueducto * 0.4);
+                        int val = (int) (cargoFijoAcueducto * porcentajeSubsidioAcueducto);
                         if (lectura > 30) {
-                            subsidioAcueducto = (int) (val + (valorMtr3Acueducto * mtrsMaxSubsidio) * 0.4);
+                            subsidioAcueducto = (int) (val + (valorMtr3Acueducto * mtrsMaxSubsidio) * porcentajeSubsidioAcueducto);
                         } else {
-                            subsidioAcueducto = (int) (val + consumoAcueducto * 0.4);
+                            subsidioAcueducto = (int) (val + consumoAcueducto * porcentajeSubsidioAcueducto);
                         }
                     } else {
                         subsidioAcueducto = 0;
@@ -271,11 +277,11 @@ public class RegistrarLecturaFragment extends Fragment {
 
                     //↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ CÁLCULOS PARA EL CAMPO SUBSIDIO ALCANTARILLADO
                     if (servicioAlcantarillado == 1) {
-                        int val = (int) (cargoFijoAlcantarillado * 0.4);
+                        int val = (int) (cargoFijoAlcantarillado * porcentajeSubsidioAlcantarillado);
                         if (lectura > 30) {
-                            subsidioAlcantarillado = (int) (val + (valorMtr3Alcantarillado * mtrsMaxSubsidio) * 0.4);
+                            subsidioAlcantarillado = (int) (val + (valorMtr3Alcantarillado * mtrsMaxSubsidio) * porcentajeSubsidioAlcantarillado);
                         } else {
-                            subsidioAlcantarillado = (int) (val + consumoAlcantarillado * 0.4);
+                            subsidioAlcantarillado = (int) (val + consumoAlcantarillado * porcentajeSubsidioAlcantarillado);
                         }
                     } else {
                         subsidioAlcantarillado = 0;
@@ -288,15 +294,15 @@ public class RegistrarLecturaFragment extends Fragment {
                     System.out.println("VALOR DE consumoAlcantarillado " + consumoAlcantarillado);
                     System.out.println("VALOR DE subsidioAlcantarillado " + subsidioAlcantarillado);
 
-                    /*admin.guardarLectura(txtlecturaActual,
+                    admin.guardarLectura(txtlecturaActual,
                             String.valueOf(lectura),
                             String.valueOf(consumoAcueducto),
                             String.valueOf(subsidioAcueducto),
                             String.valueOf(consumoAlcantarillado),
                             String.valueOf(subsidioAlcantarillado),
-                            ruta); */
+                            ruta);
 
-                    Toast.makeText(getActivity(), "LA LECTURA ES " + lectura, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "FACTURA GENERADA EXITOSAMENTE", Toast.LENGTH_SHORT).show();
                 }
 
                 FacturaController factura = new FacturaController();
@@ -379,12 +385,13 @@ public class RegistrarLecturaFragment extends Fragment {
         Paint paint_num = new Paint();
         Paint paint_final = new Paint();
 
-        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(390,2010,1).create();
+        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(390,975,1).create();
         PdfDocument.Page page = pdfdocument.startPage(pageInfo);
 
         Canvas canvas = page.getCanvas();
 
-        canvas.drawBitmap(scaledbmp,20,20, paint); //IMAGEN
+        //canvas.drawBitmap(scaledbmp,20,35, paint); //IMAGEN
+        canvas.drawBitmap(scaledbmp2,20,35, paint); //IMAGEN
 
         paint.setColor(Color.rgb(53,168,243));
         paint.setTextSize(11);
@@ -430,7 +437,8 @@ public class RegistrarLecturaFragment extends Fragment {
         paint_table.setStrokeWidth(1);
         canvas.drawRect(20,100,pagewidth-20,160, paint_table); //RECTÁNGULO DATOS SUSCRIPTOR
 
-        canvas.drawText("EMPRESA DE SERVICIOS PÚBLICOS DE PAZ DE RÍO",pagewidth-20,30, paint); //TEXTO
+        //canvas.drawText("EMPRESA DE SERVICIOS PÚBLICOS DE PAZ DE RÍO",pagewidth-20,30, paint); //TEXTO PAZ DE RÍO
+        canvas.drawText("ASOCIACION DE USUARIOS ACUEDUCTO DE LA PEDREGOSA",pagewidth-20,30, paint); //TEXTO
         canvas.drawText("NUIR. " + obj.get(0).getNuir()+ " VIGILADO POR LA SSPD",pagewidth-50,45, paint);
         canvas.drawText("NIT. " + obj.get(0).getNit(),pagewidth-120,60, paint);
         canvas.drawText("FACTURA N° " ,248,90, paint);
@@ -476,43 +484,48 @@ public class RegistrarLecturaFragment extends Fragment {
             int dt = barras-Integer.parseInt(lec.get(0).getConsumo_mes_6()) /2;
             paint_color.setColor(Color.rgb(53,168,243));
             paint_color.setStrokeWidth(1);
-            canvas.drawRect(275,dt,285,251, paint_color);
+            canvas.drawRect(260,dt,285,270, paint_color);
         }
         if(!lec.get(0).getConsumo_mes_5().equals("")){
 
             int dt = barras-Integer.parseInt(lec.get(0).getConsumo_mes_5()) /2;
             paint_color.setColor(Color.rgb(53,168,243));
             paint_color.setStrokeWidth(1);
-            canvas.drawRect(290,dt,300,251, paint_color);
+            canvas.drawRect(275,dt,285,251, paint_color);
         }
         if(!lec.get(0).getConsumo_mes_4().equals("")){
 
             int dt = barras-Integer.parseInt(lec.get(0).getConsumo_mes_4()) /2;
             paint_color.setColor(Color.rgb(53,168,243));
             paint_color.setStrokeWidth(1);
-            canvas.drawRect(305,dt,315,251, paint_color);
+            canvas.drawRect(290,dt,300,251, paint_color);
         }
         if(!lec.get(0).getConsumo_mes_3().equals("")){
 
             int dt = barras-Integer.parseInt(lec.get(0).getConsumo_mes_3()) /2;
             paint_color.setColor(Color.rgb(53,168,243));
             paint_color.setStrokeWidth(1);
-            canvas.drawRect(320,dt,330,251, paint_color);
+            canvas.drawRect(305,dt,315,251, paint_color);
         }
         if(!lec.get(0).getConsumo_mes_2().equals("")){
 
             int dt = barras-Integer.parseInt(lec.get(0).getConsumo_mes_2()) /2;
             paint_color.setColor(Color.rgb(53,168,243));
             paint_color.setStrokeWidth(1);
-            canvas.drawRect(335,dt,345,251, paint_color);
+            canvas.drawRect(320,dt,330,251, paint_color);
         }
         if(!lec.get(0).getConsumo_mes_1().equals("")){
 
             int dt = barras-Integer.parseInt(lec.get(0).getConsumo_mes_1()) /2;
             paint_color.setColor(Color.rgb(53,168,243));
             paint_color.setStrokeWidth(1);
-            canvas.drawRect(350,dt,360,251, paint_color);
+            canvas.drawRect(335,dt,345,251, paint_color);
         }
+
+        int dt = barras-Integer.parseInt(lec.get(0).getConsumo_basico()) /2;
+        paint_color.setColor(Color.rgb(53,168,243));
+        paint_color.setStrokeWidth(1);
+        canvas.drawRect(350,dt,360,251, paint_texto);
 
         canvas.drawText("Lectura Anterior",106,267, paint);
         canvas.drawText("Lectura Actual",190,267, paint);
@@ -575,8 +588,6 @@ public class RegistrarLecturaFragment extends Fragment {
         canvas.drawText("TOTAL ACUEDUCTO",105,497, paint_titulo);
         canvas.drawText("TOTAL ALCANTARILLADO",285,497, paint_titulo);
 
-        //canvas.drawText("Acueducto",138,392, paint_texto_peque);
-        //canvas.drawText("Alcantarillado",188,392, paint_texto_peque);
         canvas.drawText("Cargo Fijo",25,415, paint_texto);
         canvas.drawText("Valor M³",25,427, paint_texto);
         canvas.drawText(admin.formatoSalida(lec.get(0).getCargo_fijo_acueducto()),193,415, paint_num);
@@ -662,17 +673,23 @@ public class RegistrarLecturaFragment extends Fragment {
         canvas.drawText("Deuda Anterior",200,679, paint_texto);
         canvas.drawText("TOTAL",200,698, paint_texto);
 
-        canvas.drawText(admin.formatoSalida(String.valueOf(totalA))+".00",367,631, paint_num); //TOTAL ACUEDUCTO
-        canvas.drawText(admin.formatoSalida(String.valueOf(totalB))+".00",367,643, paint_num); //TOTAL ALCANTARILLADO
-        canvas.drawText(admin.formatoSalida(String.valueOf(totalCptoAseo)),367,655, paint_num); //TOTAL ASEO
-        canvas.drawText(admin.formatoSalida(lec.get(0).getDeuda_anterior()),367,679, paint_num); //TOTAL DEUDA ANTERIOR
-
         double TOTAL =  admin.formato(String.valueOf(totalA)) +
                         admin.formato(String.valueOf(totalB)) +
                         admin.formato(String.valueOf(totalCptoAseo)) +
                         admin.formato(lec.get(0).getDeuda_anterior());
 
-        canvas.drawText(admin.formatoSalida(String.valueOf(TOTAL)),367,698, paint_num);
+        double fn = Math.round(TOTAL);
+        String nn = String.valueOf(fn)+"0";
+        double AJUSTE = fn - TOTAL;
+        System.out.println("TOTAL CALCULADO "+ Math.round(AJUSTE * 100.0) / 100.0);
+
+        canvas.drawText(admin.formatoSalida(String.valueOf(totalA))+".00",367,631, paint_num); //TOTAL ACUEDUCTO
+        canvas.drawText(admin.formatoSalida(String.valueOf(totalB))+".00",367,643, paint_num); //TOTAL ALCANTARILLADO
+        canvas.drawText(admin.formatoSalida(String.valueOf(totalCptoAseo)),367,655, paint_num); //TOTAL ASEO
+        canvas.drawText(admin.formatoSalida(String.valueOf(AJUSTE)),367,667, paint_num); //TOTAL AJUSTE
+        canvas.drawText(admin.formatoSalida(lec.get(0).getDeuda_anterior()),367,679, paint_num); //TOTAL DEUDA ANTERIOR
+
+        canvas.drawText(admin.formatoSalida(String.valueOf(Math.round(TOTAL))),367,698, paint_num);
 
 
         paint_table.setColor(Color.rgb(53,168,243));
@@ -693,21 +710,23 @@ public class RegistrarLecturaFragment extends Fragment {
         canvas.drawText("PAGAR ANTES DE:",158,725, paint);
         canvas.drawText("TOTAL FACTURA:",65,760, paint_total);
         canvas.drawText(lec.get(0).getFecha_vencimiento(),200,725, paint_texto);
-        canvas.drawText(admin.formatoSalida(String.valueOf(TOTAL)),340,760, paint_final);
+        canvas.drawText(admin.formatoSalida(String.valueOf(Math.round(TOTAL))),340,760, paint_final);
 
         paint_table.setColor(Color.rgb(53,168,243));
         paint_table.setStyle(Paint.Style.STROKE);
         paint_table.setStrokeWidth(1);
         canvas.drawRect(250,857,pagewidth-20,877, paint_table); //RECTÁNGULO # FACTURA
 
-        canvas.drawBitmap(scaledbmp,20,802, paint); //IMAGEN
-        canvas.drawText("EMPRESA DE SERVICIOS PÚBLICOS DE PAZ DE RÍO",pagewidth-20,812, paint); //TEXTO
+        //canvas.drawBitmap(scaledbmp,20,815, paint); //IMAGEN
+        canvas.drawBitmap(scaledbmp2,20,815, paint); //IMAGEN
+        //canvas.drawText("EMPRESA DE SERVICIOS PÚBLICOS DE PAZ DE RÍO",pagewidth-20,812, paint); //TEXTO PAZ DE RÍO
+        canvas.drawText("ASOCIACION DE USUARIOS ACUEDUCTO DE LA PEDREGOSA",pagewidth-20,812, paint); //TEXTO
         canvas.drawText("NUIR. " + obj.get(0).getNuir()+ " VIGILADO POR LA SSPD",pagewidth-50,827, paint);
         canvas.drawText("NIT. " + obj.get(0).getNit(),pagewidth-120,842, paint);
         canvas.drawText("FACTURA N° " ,248,872, paint);
         canvas.drawText(lec.get(0).getNumero_factura() ,270,872, paint_texto);
         canvas.drawText("Código Ruta ",120,890, paint);
-        canvas.drawText(lec.get(0).getCodigo_ruta(),50,905, paint_texto);
+        canvas.drawText(lec.get(0).getCodigo_ruta(),70,905, paint_texto);
         canvas.drawText("Periodo Facturación " ,300,890, paint);
         canvas.drawText(lec.get(0).getPeriodo(),155,905, paint_texto);
         canvas.drawText("TOTAL ACUEDUCTO/ALCANTARILLADO/ASEO",260,925, paint);
@@ -716,14 +735,14 @@ public class RegistrarLecturaFragment extends Fragment {
                 admin.formato(String.valueOf(totalB)) +
                 admin.formato(String.valueOf(totalCptoAseo));
 
-        canvas.drawText(admin.formatoSalida(String.valueOf(TOTAL_SERVICIOS)),340,925, paint_num);
+        canvas.drawText(admin.formatoSalida(String.valueOf(Math.round(TOTAL_SERVICIOS))),340,925, paint_num);
 
         paint_color.setColor(Color.rgb(53,168,243));
         paint_color.setStrokeWidth(1);
         canvas.drawRect(30,940,210,960, paint_color); //RECTÁNGULO TÍTULOS
 
         canvas.drawText("VALOR A PAGAR",120,955, paint_titulo);
-        canvas.drawText(admin.formatoSalida(String.valueOf(TOTAL)),345,957, paint_final);
+        canvas.drawText(admin.formatoSalida(String.valueOf(Math.round(TOTAL))),345,957, paint_final);
 
 
 

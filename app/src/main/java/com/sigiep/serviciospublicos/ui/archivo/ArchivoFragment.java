@@ -193,6 +193,8 @@ public class ArchivoFragment extends Fragment {
                             registro.put("servicio_acueducto", arreglo[62]);
                             registro.put("servicio_alcantarillado", arreglo[63]);
                             registro.put("servicio_aseo", arreglo[64]);
+                            registro.put("porcentaje_subsidio_acueducto", arreglo[65]);
+                            registro.put("porcentaje_subsidio_alcantarillado", arreglo[66]);
 
 
                             db.insert("lectura", null, registro);
@@ -364,6 +366,10 @@ public class ArchivoFragment extends Fragment {
                     fileWriter.append(fila.getString(63));
                     fileWriter.append(";");
                     fileWriter.append(fila.getString(64));
+                    fileWriter.append(";");
+                    fileWriter.append(fila.getString(65));
+                    fileWriter.append(";");
+                    fileWriter.append(fila.getString(66));
                     fileWriter.append("\n");
 
                 } while(fila.moveToNext());
