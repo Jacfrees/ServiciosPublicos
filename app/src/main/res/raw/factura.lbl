@@ -1,0 +1,147 @@
+CT~~CD,~CC^~CT~
+^XA~TA000~JSN^LT0^MNN^MTD^PON^PMN^LH0,0^JMA^PR5,5~SD10^JUS^LRN^CI0^XZ
+^XA
+^MMT
+^PW831
+^LL2198
+^LS0
+^FT358,2150^AFI,26,13^FH\^FD&factura&^FS
+^FT773,2005^ACI,18,10^FH\^FDPeriodo facturacion:   &fecha& al &fecha_factura&^FS
+^FT773,1987^ACI,18,10^FH\^FD            ^FS
+^FT773,1969^ACI,18,10^FH\^FDPeriodo:  ^FS
+^FT773,1951^ACI,18,10^FH\^FD                                       ^FS
+^FT773,1933^ACI,18,10^FH\^FDEstrato:  &estrato&   ^FS
+^FT773,1915^ACI,18,10^FH\^FD                                         ^FS
+^FT773,1897^ACI,18,10^FH\^FDUso:   &uso&                            ^FS
+^FT773,1879^ACI,18,10^FH\^FDFecha de Entrega: &Fecha de Entrega&  ^FS
+^FT773,1861^ACI,18,10^FH\^FDNro. medidor:   &numeroMedidor&^FS
+^FT773,2101^ACI,18,10^FH\^FDCodigo de Ruta: &codigoRuta&^FS
+^FT773,2083^ACI,18,10^FH\^FDNombre:   &usuario&^FS
+^FT773,2065^ACI,18,10^FH\^FDDireccion:   &direccion&^FS
+^FT428,2101^ACI,18,10^FH\^FDCodigo referencia:^FS
+^FT737,1784^ACI,18,10^FH\^FD&lecturaAnterior&^FS
+^FT773,1531^ACI,18,10^FH\^FDCargo Fijo^FS
+^FT773,1513^ACI,18,10^FH\^FDSubsidio C.F.^FS
+^FT773,1495^ACI,18,10^FH\^FDConsumo <=11 m3^FS
+^FT773,1477^ACI,18,10^FH\^FDSubs. <=11 m3^FS
+^FT773,1459^ACI,18,10^FH\^FDConsumo > 11 m3^FS
+^FT773,1441^ACI,18,10^FH\^FDSobrep. > 11m3^FS
+^FT773,1423^ACI,18,10^FH\^FDConsumoS.>11m3^FS
+^FT773,1369^ACI,18,10^FH\^FDTOTAL^FS
+^FT580,1497^ACI,18,10^FH\^FD&consumomenor&^FS
+^FT580,1461^ACI,18,10^FH\^FD&consumomayor&^FS
+^FT580,1371^ACI,18,10^FH\^FD&total&^FS
+^FT677,1495^ACI,18,10^FB242,1,0,R^FH\^FD&acueductoValorMtr3&^FS
+^FT677,1459^ACI,18,10^FB242,1,0,R^FH\^FD&acueductoValorMtr3&^FS
+^FT656,1495^ACI,18,10^FB302,1,0,R^FH\^FD&alcantarilladoValorMtr3&^FS
+^FT656,1459^ACI,18,10^FB302,1,0,R^FH\^FD&alcantarilladoValorMtr3&^FS
+^FT601,1533^ACI,18,10^FB386,1,0,R^FH\^FD&acueductoCargoFijo&^FS
+^FT601,1515^ACI,18,10^FB386,1,0,R^FH\^FD&acueductoSubsidoCargoFijo&^FS
+^FT601,1497^ACI,18,10^FB386,1,0,R^FH\^FD&acueductoConsumoBasico&^FS
+^FT601,1479^ACI,18,10^FB386,1,0,R^FH\^FD&acueductoSubsidoBasico&^FS
+^FT601,1461^ACI,18,10^FB386,1,0,R^FH\^FD&acueductoConsumoComplementario&^FS
+^FT601,1443^ACI,18,10^FB386,1,0,R^FH\^FD&acueductoSubsidoComplementario&^FS
+^FT601,1425^ACI,18,10^FB386,1,0,R^FH\^FD&acueductoConsumoSuntuario&^FS
+^FT601,1371^ACI,18,10^FB386,1,0,R^FH\^FD&tot&^FS
+^FT491,1531^ACI,18,10^FB446,1,0,R^FH\^FD&alcantarilladoCargoFijo&^FS
+^FT491,1513^ACI,18,10^FB446,1,0,R^FH\^FD&alcantarilladoSubsidoCargoFijo&^FS
+^FT491,1495^ACI,18,10^FB446,1,0,R^FH\^FD&alcantarilladoConsumoBasico&^FS
+^FT491,1477^ACI,18,10^FB446,1,0,R^FH\^FD&alcantarilladoSubsidoBasico&^FS
+^FT491,1459^ACI,18,10^FB446,1,0,R^FH\^FD&alcantarilladoConsumoComplementario&^FS
+^FT491,1441^ACI,18,10^FB446,1,0,R^FH\^FD&alcantarilladoSubsidoComplementario&^FS
+^FT491,1423^ACI,18,10^FB446,1,0,R^FH\^FD&alcantarilladoConsumoSuntuario&^FS
+^FT491,1369^ACI,18,10^FB446,1,0,R^FH\^FD&tot2&^FS
+^FT318,1014^ACI,18,10^FH\^FD&fecha& al &fecha_factura&^FS
+^FT531,1014^ACI,18,10^FH\^FD&referencia&^FS
+^FT761,1014^ACI,18,10^FH\^FD&ruta&^FS
+^FT773,1183^ACI,18,10^FH\^FDACUEDUCTO       &tot&^FS
+^FT773,1165^ACI,18,10^FH\^FDALCANTARILLADO  &tot2&^FS
+^FT773,1147^ACI,18,10^FH\^FDOTROS COBROS  &financiacion&  ^FS
+^FT389,1183^ACI,18,10^FH\^FDDEUDA ANT. &deudaAnterior&^FS
+^FT389,1165^ACI,18,10^FH\^FDINTERESES  &interes&^FS
+^FT389,1147^ACI,18,10^FH\^FDOTROS AJUSTE &AJUSTE&^FS
+^FT463,1090^AAI,27,15^FH\^FD&TOTAL&^FS
+^FT102,1097^ACI,18,10^FH\^FD&total&^FS
+^FT184,250^AAI,27,15^FH\^FD&TOTAL2&^FS
+^FT773,763^ACI,18,10^FH\^FD(415)7709998003880(8020)&codigo_referencia_f&(3900)&TOTAL_ff&(96)&fecha_vencimiento_f&^FS
+^FT403,650^ACI,18,10^FH\^FD&aseoMora&^FS
+^FT596,606^ACI,18,10^FH\^FD&numeroFactura&^FS
+^FT773,602^ACI,36,20^FH\^FD&codigoReferencia&^FS
+^FT407,606^ACI,18,10^FH\^FD&fechaVencimiento&^FS
+^FT237,606^ACI,18,10^FH\^FD&TIPO&^FS
+^FT184,301^AAI,27,15^FH\^FD&totalCptoAseo&^FS
+^FT531,1943^ACI,18,10^FH\^FDLector  &aforador&^FS
+^FT531,1907^ACI,18,10^FH\^FDMeses Mora:   &atraso&^FS
+^FT318,1951^ACI,18,10^FH\^FD&Mes6& &consumoMes6&^FS
+^FT318,1933^ACI,18,10^FH\^FD&Mes5& &consumoMes5&^FS
+^FT318,1915^ACI,18,10^FH\^FD&Mes4& &consumoMes4&^FS
+^FT318,1897^ACI,18,10^FH\^FD&Mes3& &consumoMes3&^FS
+^FT318,1879^ACI,18,10^FH\^FD&Mes2& &consumoMes2&^FS
+^FT318,1861^ACI,18,10^FH\^FD&Mes1& &consumoMes1&^FS
+^FT574,1784^ACI,18,10^FH\^FD&lecturaActual&^FS
+^FT383,1784^ACI,18,10^FH\^FD&consumoFacturado&^FS
+^FT197,1784^ACI,18,10^FH\^FD&promedio&^FS
+^BY2,3,108^FT769,777^BCI,,N,N
+^FD>;>84157709998003880802000000000>839000000000000>89600000000^FS
+^BY2,3,108^FT750,66^BCI,,N,N
+^FD>;>84157709998017115802000000000>839009999999999>89600000000^FS
+^FT750,52^ACI,18,10^FH\^FD(415)7709998017115(8020)&codigo_referencia_f&(3900)&totalCptoAseo_ff&(96)&fecha_vencimiento_f&^FS
+^FT187,1848^A0I,20,19^FH\^FD#lineas#^FS
+^FT769,650^ACI,18,10^FH\^FD&usuario&^FS
+^FT773,1675^ACI,36,20^FH\^FD&eventualidades&^FS
+^FT773,1288^ACI,18,10^FH\^FD&concepto&^FS
+^FT270,1288^ACI,18,10^FH\^FD&C.Pend&^FS
+^FT212,2096^ACI,36,20^FH\^FD&codigoReferencia&^FS
+^FT773,545^A0I,17,16^FH\^FDCFT/CVNA/VBA &cft&^FS
+^FT773,524^A0I,17,16^FH\^FDTRBL/TRLU/TRRA &trbl&^FS
+^FT773,503^A0I,17,16^FH\^FDTRNA/TAFNA/TRA TAFA &tra&^FS
+^FT773,482^A0I,17,16^FH\^FDHISTORICOS1/2/3 &historicos123&^FS
+^FT773,461^A0I,17,16^FH\^FDHISTORICOS4/5/6 &historicos456&^FS
+^FT368,545^A0I,17,16^FH\^FDASEO:                         &aseoCargoFijo&^FS
+^FT368,524^A0I,17,16^FH\^FDSUBSIDIO/APORTE ASEO: &aseoSubsidoBasico&^FS
+^FT368,503^A0I,17,16^FH\^FDDEUDA ASEO                &deuda&^FS
+^FT368,482^A0I,17,16^FH\^FDAJUSTE DEBITO             &ajuste_d&^FS
+^FT368,461^A0I,17,16^FH\^FDAJUSTE CREDITO           &ajuste_c&^FS
+^FT656,317^A0I,14,14^FH\^FD&uni_residenciales&^FS
+^FT656,300^A0I,14,14^FH\^FD&uni_comerciales&^FS
+^FT539,317^A0I,14,14^FH\^FD&porcentaje_subsidio&^FS
+^FT535,300^A0I,14,14^FH\^FD&porcentaje_contribucion&^FS
+^FT358,317^A0I,14,14^FH\^FD&frec_barrido&^FS
+^FT358,300^A0I,14,14^FH\^FD&frec_recoleccion&^FS
+^FT408,250^AAI,27,15^FH\^FD&totalCptoAseo&^FS
+^FT561,1288^ACI,18,10^FH\^FD&valor&^FS
+^FT467,1288^ACI,18,10^FH\^FD&cuotas&^FS
+^FT363,1288^ACI,18,10^FH\^FD&saldo&^FS
+^FT169,1288^ACI,18,10^FH\^FD&valorCuota&^FS
+^FT643,1222^ACI,18,10^FH\^FD&subTotal&^FS
+^FT773,1125^ACI,18,10^FH\^FDABONOS   &abonos&^FS
+^FT595,1767^AAI,9,5^FH\^FDCMI\09    CMO\09   CMT\09      ^FS
+^FT595,1758^AAI,9,5^FH\^FD1,150.16 1,084.31 5.02\09^FS
+^FT595,1749^AAI,9,5^FH\^FDCMIALC\09CMOALC\09CMTALC^FS
+^FT595,1740^AAI,9,5^FH\^FD199.59\09454.5\0954.7^FS
+^FT643,250^AAI,27,15^FH\^FD&TOTAL&^FS
+^FT428,896^AFI,26,13^FH\^FD&factura&/^FS
+^FT428,186^AFI,26,13^FH\^FD&factura&/^FS
+^FT761,1647^A0I,20,19^FH\^FD&observaciones_otros_cobros&^FS
+^FT672,1970^AFI,26,13^FH\^FD&periodo&^FS
+^FT773,1057^ACI,18,10^FH\^FDFecha de Pago: &fecha_vencimiento& ^FS
+^FT784,434^A0I,23,24^FH\^FD\ADAtenci\A2n!^FS
+^FT784,406^A0I,23,24^FH\^FDDesde el lunes 26 de abril nuestro centro de atenci\A2n al ^FS
+^FT784,378^A0I,23,24^FH\^FDcliente estar\A0 ubicado en la Avenida Am\82ricas No. 27-59.^FS
+^FT784,350^A0I,23,24^FH\^FDwww.urbaser.co/duitama t\82lefono 7604191.^FS
+^FT257,186^AFI,26,13^FH\^FD&totalCptoAseo&^FS
+^FT257,896^AAI,27,15^FH\^FD&TOTAL&^FS
+^FT773,1264^ACI,18,10^FH\^FD&concepto2&^FS
+^FT270,1264^ACI,18,10^FH\^FD&C.Pend2&^FS
+^FT561,1264^ACI,18,10^FH\^FD&valor2&^FS
+^FT467,1264^ACI,18,10^FH\^FD&cuotas2&^FS
+^FT363,1264^ACI,18,10^FH\^FD&saldo2&^FS
+^FT169,1264^ACI,18,10^FH\^FD&valorCuota2&^FS
+^FT773,1240^ACI,18,10^FH\^FD&concepto3&^FS
+^FT270,1240^ACI,18,10^FH\^FD&C.Pend3&^FS
+^FT561,1240^ACI,18,10^FH\^FD&valor3&^FS
+^FT467,1240^ACI,18,10^FH\^FD&cuotas3&^FS
+^FT363,1240^ACI,18,10^FH\^FD&saldo3&^FS
+^FT169,1240^ACI,18,10^FH\^FD&valorCuota3&^FS
+^FT761,1630^A0I,20,19^FH\^FD&observaciones_otros_cobros2&^FS
+^PQ1,0,1,Y^XZ

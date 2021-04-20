@@ -1,36 +1,22 @@
 <resources>
-    <string name="app_name">Servicios Públicos</string>
-    <string name="usuario">Usuario</string>
-    <string name="contrasena">Contraseña</string>
-    <string name="ingresar">Ingresar</string>
-    <string name="sector">Sector</string>
-    <string name="codigo_ruta">Código de Ruta</string>
-    <string name="registrar_lectura">Registrar Lectura</string>
-    <string-array name="spinner_sector">
-        <item>001 - Centro Bajo</item>
-        <item>002 - Centro Alto</item>
-        <item>003 - Miradores</item>
-    </string-array>
-    <string name="title_activity_home">HomeActivity</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nombre_pazderio">Municipio Paz De Río</string>
-    <string name="nombre_pedregosa">ASOCIACIÓN DE USUARIOS ACUEDUCTO DE LA PEDREGOSA</string>
-    <string name="correo_pazderio">alcaldia@pazderio-boyaca.gov.co</string>
-    <string name="corrreo_pedregosa">acupedregosa@gmail.com</string>
-    <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Configuración</string>
+    <string name="app_name">Sigiep Facturación en Sitio</string>
+    <string name="Usuario">Usuario</string>
+    <string name="Clave">Clave</string>
+    <string name="Ingresar">Ingresar</string>
+    <string name="Sincronizar">Sincronizar</string>
+    <string name="RegistrarLectura">Registrar Lectura</string>
+    <string name="cod_Ruta">Codigo Ruta</string>
+    <string name="Registrar">Imprimir</string>
+    <string name="rutas">Rutas</string>
+    <string name="salir">Salir</string>
+    <string name="confImpresora">Configurar impresora</string>
+    <string name="ConfBlue">Configuracion de conexion por bluetooth</string>
+    <string name="DirMac">Direccion MAC</string>
+    <string name="retomar_lectura">Retomar lectura</string>
+    <string name="ultima_factura_impresa">Ultima Factura Impresa</string>
+    <string name="continuarUltimoRegistro">Continuar desde último registro visualizado</string>
+    <string name="continuarRegistroSeleccionado">Continuar desde registro seleccionado</string>
 
-    <string name="menu_home">Inicio</string>
-    <string name="menu_gallery">Importar/Exportar Archivo</string>
-    <string name="menu_slideshow">Slideshow</string>
-    <string name="menu_registrar_usuario">Registrar Usuario</string>
-    <string name="menu_cerrar_sesion">Cerrar Sesión</string>
 
-    <string name="home_second">Home Second</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="btn_guardar_imprimir">Guardar e Imprimir</string>
-    <string name="cod_ruta">Cod Ruta:</string>
 
 </resources>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Sincronizar">
+
+    <Spinner
+        android:id="@+id/spSector"
+        android:layout_width="253dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="220dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnSincro"
+        android:layout_width="105dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/btn_login"
+        android:text="@string/Sincronizar"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spSector" />
+
+    <Button
+        android:id="@+id/btnSubida"
+        android:layout_width="117dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="147dp"
+        android:layout_marginLeft="147dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="150dp"
+        android:layout_marginRight="150dp"
+        android:background="@drawable/btn_login"
+        android:text="SUBIDA"
+        android:textColor="#FFFFFF"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSincro" />
+
+    <TextView
+        android:id="@+id/txtCargando"
+        android:layout_width="245dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="88dp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginRight="100dp"
+        android:text="Cargando por favor espere"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.382"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSubida" />
+
+    <TextView
+        android:id="@+id/txtTotalRutas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="27dp"
+        android:layout_marginLeft="27dp"
+        android:layout_marginTop="82dp"
+        android:text=" El total de rutas sincronizadas fue de:"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtTRutas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="82dp"
+        android:layout_marginEnd="57dp"
+        android:layout_marginRight="57dp"
+        android:hint="cantidad"
+        android:textColor="#0C0C0C"
+        android:textColorHighlight="#171616"
+        android:textColorHint="#101010"
+        android:textColorLink="#100F0F"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnLimpiar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="113dp"
+        android:layout_marginLeft="113dp"
+        android:layout_marginTop="27dp"
+        android:layout_marginEnd="113dp"
+        android:layout_marginRight="113dp"
+        android:background="@drawable/btn_login"
+        android:text="Limpiar base de datos"
+        android:textColor="#FFFDFD"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSubida" />
+</androidx.constraintlayout.widget.ConstraintLayout>
