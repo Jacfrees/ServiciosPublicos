@@ -63,6 +63,7 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -119,7 +120,7 @@ public class RegistrarFactura extends AppCompatActivity implements AdapterView.O
     CheckBox checkDaniado;
     CheckBox checkCasaVacia;
     boolean pdf;
-    double TOTAL, TOTAL2, aux;
+    Double TOTAL, TOTAL2, aux;
     int index = 0;
     ArrayList<RegistrarFactura> obj;
     Bitmap bmp, scaledbmp; //PARA AGREGAR IMAGENES
@@ -1261,7 +1262,6 @@ public class RegistrarFactura extends AppCompatActivity implements AdapterView.O
         Double acueductoSubsidoComplement = Double.parseDouble(acueductoSubsidoComplementario);
         Double acueductoConsumoSuntu = Double.parseDouble(acueductoConsumoSuntuario);
         Double acueductoSubsidioSuntu = Double.parseDouble(acueductoSubsidoSuntuario);
-        //Double tot = redondear(acueductoCargoF) - redondear(acueductoSubsidoCargoF) + redondear(acueductoConsumoB) - redondear(acueductoSubsidoB) + redondear(acueductoConsumoComplement) - redondear(acueductoSubsidoComplement) + redondear(acueductoConsumoSuntu) - redondear(acueductoSubsidioSuntu);
         Double tot = acueductoCargoF - acueductoSubsidoCargoF + acueductoConsumoB - acueductoSubsidoB + acueductoConsumoComplement - acueductoSubsidoComplement + acueductoConsumoSuntu - acueductoSubsidioSuntu;
 
         Double tot3 = tot;
@@ -1274,7 +1274,7 @@ public class RegistrarFactura extends AppCompatActivity implements AdapterView.O
         usuario.put("acueductoConsumoSuntuario", admin.formatoSalida2(acueductoConsumoSuntuario));
 
         //tot = Double.valueOf(Math.round(tot));
-        total_acueducto = String.valueOf(redondear(tot));
+        total_acueducto = String.valueOf(Math.round(tot));
         if (tot < 0) {
             tot = 0.0;
         }
@@ -1289,11 +1289,9 @@ public class RegistrarFactura extends AppCompatActivity implements AdapterView.O
         Double alcantarilladoSubsidoComplement = Double.parseDouble(alcantarilladoSubsidoComplementario);
         Double alcantarilladoConsumoSuntu = Double.parseDouble(alcantarilladoConsumoSuntuario);
         Double alcantarilladoSubsidioSuntu = Double.parseDouble(alcantarilladoSubsidoSuntuario);
-        //Double tot2 = redondear(alcantarilladoCargoF) - redondear(alcantarilladoSubsidoCargoF) + redondear(alcantarilladoConsumoB) - redondear(alcantarilladoSubsidoB) + redondear(alcantarilladoConsumoComplement) - redondear(alcantarilladoSubsidoComplement) + redondear(alcantarilladoConsumoSuntu) - redondear(alcantarilladoSubsidioSuntu);
         Double tot2 = alcantarilladoCargoF - alcantarilladoSubsidoCargoF + alcantarilladoConsumoB - alcantarilladoSubsidoB + alcantarilladoConsumoComplement - alcantarilladoSubsidoComplement + alcantarilladoConsumoSuntu - alcantarilladoSubsidioSuntu;
         Double tot4 = tot2;
-        //tot2 = Double.valueOf(Math.round(tot2));
-        total_alcantarillado = String.valueOf(redondear(tot2));
+        total_alcantarillado = String.valueOf(Math.round(tot2));
 
         usuario.put("alcantarilladoCargoFijo", admin.formatoSalida2(alcantarilladoCargoFijo));
         usuario.put("alcantarilladoSubsidoCargoFijo", "-" + admin.formatoSalida2(alcantarilladoSubsidoCargoFijo));
@@ -1665,8 +1663,13 @@ public class RegistrarFactura extends AppCompatActivity implements AdapterView.O
         if (deudaAnterior == NaN) {
             deudaAnterior = 0.0;
         }
-        TOTAL = Double.parseDouble(String.valueOf(tot3)) + Double.parseDouble(String.valueOf(tot2)) + Double.parseDouble(String.valueOf(deudaAnterior)) + Double.parseDouble(acueductoMora) + Double.parseDouble(financiacion) - Double.parseDouble(abonos1) + otrosCobros;
-        // TOTAL = Double.valueOf(Math.round(TOTAL));
+
+        TOTAL = Double.parseDouble(String.valueOf(tot3)) + Double.parseDouble(String.valueOf(tot2))
+                + Double.parseDouble(String.valueOf(deudaAnterior)) + Double.parseDouble(acueductoMora)
+                + otrosCobros + Double.parseDouble(abonos1);
+
+
+
         usuario.put("interes", admin.formatoSalida(String.valueOf(acueductoMora)));
 
 
@@ -1674,9 +1677,9 @@ public class RegistrarFactura extends AppCompatActivity implements AdapterView.O
         usuario.put("deuda_anterior", deudaAnterior);
 
         TOTAL2 = TOTAL + totalCptoAseo;
-        TOTAL2 = Math.round(TOTAL2);
+        TOTAL2 = Double.valueOf(Math.round(TOTAL2));
         aux = TOTAL2;
-        TOTAL2 = Math.round(((double) TOTAL2 / (double) 100)) * 100;
+        TOTAL2 = Double.valueOf(Math.round(((double) TOTAL2 / (double) 100)) * 100);
         aux = TOTAL2 - aux;
 
         TOTAL = TOTAL + aux;
@@ -1696,10 +1699,10 @@ public class RegistrarFactura extends AppCompatActivity implements AdapterView.O
         }
 
         usuario.put("AJUSTE", aux);
-        total_acdto_alc = String.valueOf(redondear(TOTAL));
+        total_acdto_alc = String.valueOf(Math.round(TOTAL));
 
-        double TOTAL_SERVICIOS = ((tot)) +
-                ((tot2));
+        double TOTAL_SERVICIOS = (tot) +
+                (tot2);
         TOTAL_SERVICIOS = Math.round(TOTAL_SERVICIOS);
 
         usuario.put("TOTAL_SERVICIOS", admin.formatoSalida(String.valueOf(TOTAL_SERVICIOS)));
